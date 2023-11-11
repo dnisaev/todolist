@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {Todolist} from "./components/Todolist";
 
 function App() {
     const tasks1 = [
