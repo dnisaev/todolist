@@ -8,7 +8,7 @@ type PropsType = {
     changeFilter: (value: FilterValuesType) => void
     addTask: (title: string) => void
     changeTaskStatus: (id: string, isDone: boolean) => void
-    filter: string
+    filter: FilterValuesType
 }
 
 type TaskType = {
@@ -37,22 +37,14 @@ export function Todolist(props: PropsType) {
 
     const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         setError(null);
-        if (event.key === 'Enter') {
-            addTask()
-        }
+        if (event.key === 'Enter') {addTask()};
     };
 
-    const onAllClickHandler = () => {
-        props.changeFilter('all')
-    };
+    const onAllClickHandler = () => {props.changeFilter('all')};
 
-    const onActiveClickHandler = () => {
-        props.changeFilter('active')
-    };
+    const onActiveClickHandler = () => {props.changeFilter('active')};
 
-    const obCopletedClickHandler = () => {
-        props.changeFilter('completed')
-    }
+    const obCopletedClickHandler = () => {props.changeFilter('completed')};
 
     return (
         <div>
@@ -85,11 +77,14 @@ export function Todolist(props: PropsType) {
                 })}
             </ul>
             <div>
-                <button className={props.filter === 'all' ? 'active-filter' : ''} onClick={onAllClickHandler}>All
+                <button className={props.filter === 'all' ? 'active-filter' : ''}
+                        onClick={onAllClickHandler}>All
                 </button>
-                <button className={props.filter === 'active' ? 'active-filter' : ''} onClick={onActiveClickHandler}>Active
+                <button className={props.filter === 'active' ? 'active-filter' : ''}
+                        onClick={onActiveClickHandler}>Active
                 </button>
-                <button className={props.filter === 'completed' ? 'active-filter' : ''} onClick={obCopletedClickHandler}>Completed
+                <button className={props.filter === 'completed' ? 'active-filter' : ''}
+                        onClick={obCopletedClickHandler}>Completed
                 </button>
             </div>
         </div>
