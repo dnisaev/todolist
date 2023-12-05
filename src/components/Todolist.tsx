@@ -11,13 +11,13 @@ type PropsType = {
     changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
     filter: FilterValuesType
     removeTodolist: (id: string) => void
-}
+};
 
 export type TaskType = {
     id: string
     title: string
     isDone: boolean
-}
+};
 
 export function Todolist(props: PropsType) {
     const [title, setTitle] = useState('');
@@ -38,7 +38,6 @@ export function Todolist(props: PropsType) {
         if (event.key === 'Enter') {
             addTask()
         }
-        ;
     };
     const onAllClickHandler = () => {
         props.changeFilter('all', props.id)

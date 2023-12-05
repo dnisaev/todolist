@@ -11,7 +11,7 @@ type TodolistsType = {
 };
 type TasksStateType = {
     [key: string]: Array<TaskType>
-}
+};
 
 function App() {
 
@@ -94,6 +94,6 @@ function App() {
             }
         </div>
     );
-};
+}
 
 export default App;
