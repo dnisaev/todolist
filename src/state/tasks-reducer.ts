@@ -35,31 +35,47 @@ export type ChangeTaskTitleActionType = {
     todolistId: string
 }
 
-export const tasksReducer = (state: TasksStateType, action: ActionsType) => {
+export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
     switch (action.type) {
-        case 'REMOVE-TASK':
-            state[action.todolistId] = state[action.todolistId].filter(t => t.id !== action.taskId);
-            return {...state};
-        case 'ADD-TASK':
-            state[action.todolistId] = [{id: '0', title: action.taskTitle, isDone: false}, ...state[action.todolistId]];
-            return {...state};
-        case 'CHANGE-TASK-STATUS':
-            let findTaskStatus = state[action.todolistId].find(t => t.id === action.taskId);
+        case 'REMOVE-TASK': {
+            const stateCopy = {...state};
+            const tasks = stateCopy[action.todolistId];
+            stateCopy[action.todolistId] = tasks.filter(t => t.id !== action.taskId);
+            return stateCopy;
+        }
+        case 'ADD-TASK': {
+            const stateCopy = {...state};
+            const tasks = stateCopy[action.todolistId];
+            const newTask = {id: '0', title: action.taskTitle, isDone: false};
+            stateCopy[action.todolistId] = [newTask, ...tasks];
+            return stateCopy;
+        }
+        case 'CHANGE-TASK-STATUS': {
+            const stateCopy = {...state};
+            const findTaskStatus = stateCopy[action.todolistId].find(t => t.id === action.taskId);
             if (findTaskStatus) {
                 findTaskStatus.isDone = action.taskStatus
             }
-            return {...state};
-        case 'CHANGE-TASK-TITLE':
-            let findTaskTitle = state[action.todolistId].find(t => t.id === action.taskId);
+            return stateCopy;
+        }
+        case 'CHANGE-TASK-TITLE': {
+            const stateCopy = {...state};
+            const findTaskTitle = stateCopy[action.todolistId].find(t => t.id === action.taskId);
             if (findTaskTitle) {
                 findTaskTitle.title = action.taskTitle
             }
-            return {...state};
-        case 'ADD-TODOLIST':
-            return {[action.todolistId]:[], ...state};
-        case "REMOVE-TODOLIST":
-            delete state[action.id];
-            return {...state};
+            return stateCopy;
+        }
+        case 'ADD-TODOLIST': {
+            const stateCopy = {...state};
+            stateCopy[action.todolistId] = [];
+            return stateCopy;
+        }
+        case "REMOVE-TODOLIST": {
+            const stateCopy = {...state};
+            delete stateCopy[action.id];
+            return stateCopy;
+        }
         default:
             throw new Error('Unexpected action type')
     }
