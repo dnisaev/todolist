@@ -44,7 +44,6 @@ export function Todolist(props: TodolistPropsType) {
         <div>
             <h3 className={"removeTlButton"}>
                 <EditableSpan title={props.title} onChange={changeTodolistTitle}/>
-                {/*<button onClick={() => props.removeTodolist(props.id)}>✖️</button>*/}
                 <IconButton onClick={() => props.removeTodolist(props.id)}><Delete /></IconButton>
             </h3>
             <div>
@@ -60,10 +59,6 @@ export function Todolist(props: TodolistPropsType) {
                     const changeTaskTitle = (newValue: string) => props.changeTaskTitle(tasks.id, newValue, props.id);
                     return (
                         <div key={tasks.id} className={tasks.isDone ? 'is-done' : ''}>
-                            {/*<CheckBox*/}
-                            {/*    checked={tasks.isDone}*/}
-                            {/*    color={'primary'}*/}
-                            {/*    onChange={changeTaskStatus}/>*/}
                             <input type="checkbox" checked={tasks.isDone} onChange={changeTaskStatus}/>
                             <EditableSpan title={tasks.title} onChange={changeTaskTitle}/>
                             <IconButton onClick={onClickRemoveTask}><Delete /></IconButton>
@@ -72,19 +67,16 @@ export function Todolist(props: TodolistPropsType) {
             </div>
             <div>
                 <Button
-                        // className={props.filter === 'all' ? 'active-filter' : ''}
                         variant={props.filter === 'all' ? 'outlined' : 'text'}
                         onClick={onAllClickHandler}
                         color={"inherit"}>All
                 </Button>
                 <Button
-                        // className={props.filter === 'active' ? 'active-filter' : ''}
                         variant={props.filter === 'active' ? 'outlined' : 'text'}
                         onClick={onActiveClickHandler}
                         color={'primary'}>Active
                 </Button>
                 <Button
-                        // className={props.filter === 'completed' ? 'active-filter' : ''}
                         variant={props.filter === 'completed' ? 'outlined' : 'text'}
                         onClick={onCompletedClickHandler}
                         color={'secondary'}>Completed
