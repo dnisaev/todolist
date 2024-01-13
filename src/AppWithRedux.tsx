@@ -80,7 +80,7 @@ function AppWithRedux() {
                 <Grid container style={{padding: '20px'}}>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
-                <Grid container spacing={'3'}>
+                <Grid container spacing={3}>
                     {
                         todolists.map(todolist => {
                             let allTodolistTasks = tasks[todolist.id]
@@ -91,7 +91,7 @@ function AppWithRedux() {
                             if (todolist.filter === 'completed') {
                                 tasksForTodoList = allTodolistTasks.filter(task => task.isDone)
                             }
-                            return <Grid item>
+                            return <Grid key={todolist.id} item>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist key={todolist.id}
                                               id={todolist.id}

@@ -30,7 +30,13 @@ export type ChangeTodolistFilterActionType = {
     filter: FilterValuesType
 }
 
-const initialState: Array<TodolistsType> = [];
+export let todolistID1 = v1();
+export let todolistID2 = v1();
+
+const initialState: Array<TodolistsType> = [
+    {id: todolistID1, title: 'What to learn', filter: 'all'},
+    {id: todolistID2, title: 'What to buy', filter: 'all'}
+];
 
 export const todolistsReducer = (state: Array<TodolistsType> = initialState, action: ActionsType): Array<TodolistsType> => {
     switch (action.type) {
@@ -40,7 +46,7 @@ export const todolistsReducer = (state: Array<TodolistsType> = initialState, act
             let newTodolist: TodolistsType = {
                 id: action.todolistId, title: action.title, filter: 'all'
             }
-            return [...state, newTodolist]
+            return [newTodolist, ...state]
         case 'CHANGE-TODOLIST-TITLE':
             let findTodolist = state.find(tl => tl.id === action.id);
             if (findTodolist) {
