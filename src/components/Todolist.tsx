@@ -4,6 +4,7 @@ import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
+import {Task} from "./Task";
 
 type TodolistPropsType = {
     id: string
@@ -40,7 +41,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         props.changeFilter('completed', props.id)
     },[props.changeFilter, props.id]);
 
-    const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.id, newTitle);
+    const changeTodolistTitle = useCallback((newTitle: string) => props.changeTodolistTitle(props.id, newTitle),[props.changeTodolistTitle, props.id]);
 
     let tasksForTodoList = props.tasks;
     if (props.filter === 'active') {
@@ -65,14 +66,16 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                         let newIsDoneValue = e.currentTarget.checked
                         props.changeTaskStatus(tasks.id, newIsDoneValue, props.id)
                     }
-                    const changeTaskTitle = (newValue: string) => props.changeTaskTitle(tasks.id, newValue, props.id);
+
                     return (
-                        <div key={tasks.id} className={tasks.isDone ? 'is-done' : ''}>
-                            <input type="checkbox" checked={tasks.isDone} onChange={changeTaskStatus}/>
-                            <EditableSpan title={tasks.title} onChange={changeTaskTitle}/>
-                            <IconButton onClick={onClickRemoveTask}><Delete /></IconButton>
-                        </div>)
-                })}
+                        <Task key={tasks.id}
+                              id={tasks.id}
+                              title={tasks.title}
+                              isDone={tasks.isDone}
+                              changeTaskStatus={changeTaskStatus}
+                              changeTaskTitle={props.changeTaskTitle}
+                              onClickRemoveTask={onClickRemoveTask}/>
+                )})};
             </div>
             <div>
                 <Button
