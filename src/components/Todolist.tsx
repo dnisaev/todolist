@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FilterValuesType} from "../App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -61,21 +61,16 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
             </div>
             <div>
                 {tasksForTodoList.map((tasks) => {
-                    const onClickRemoveTask = () => props.removeTask(tasks.id, props.id);
-                    const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
-                        let newIsDoneValue = e.currentTarget.checked
-                        props.changeTaskStatus(tasks.id, newIsDoneValue, props.id)
-                    }
-
                     return (
                         <Task key={tasks.id}
+                              todolistId={props.id}
                               id={tasks.id}
                               title={tasks.title}
                               isDone={tasks.isDone}
-                              changeTaskStatus={changeTaskStatus}
+                              changeTaskStatus={props.changeTaskStatus}
                               changeTaskTitle={props.changeTaskTitle}
-                              onClickRemoveTask={onClickRemoveTask}/>
-                )})};
+                              removeTask={props.removeTask}/>
+                )})}
             </div>
             <div>
                 <Button
