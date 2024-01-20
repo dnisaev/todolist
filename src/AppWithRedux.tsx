@@ -8,7 +8,8 @@ import {Menu} from "@mui/icons-material";
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, removeTodolistAC
+    changeTodolistTitleAC,
+    removeTodolistAC
 } from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -83,9 +84,7 @@ function AppWithRedux() {
                 <Grid container spacing={3}>
                     {
                         todolists.map(todolist => {
-                            let allTodolistTasks = tasks[todolist.id]
-                            let tasksForTodoList = allTodolistTasks
-
+                            let tasksForTodoList = tasks[todolist.id]
                             return <Grid key={todolist.id} item>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist key={todolist.id}
