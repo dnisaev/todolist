@@ -5,24 +5,21 @@ type EditableSpanType = {
     title: string
     onChange: (newValue: string) => void
 }
-export const EditableSpan = (props: EditableSpanType) => {
-
+export const EditableSpan = React.memo((props: EditableSpanType) => {
+    console.log('EditableSpan called');
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState('');
-
     const activateEditMode = () => {
         setEditMode(true);
         setTitle(props.title);
-    }
-
+    };
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value);
     };
-
     const activateViewMode = () => {
         setEditMode(false);
         props.onChange(title);
-    }
+    };
 
     return editMode
         ? <TextField
@@ -32,4 +29,4 @@ export const EditableSpan = (props: EditableSpanType) => {
             onChange={onChangeHandler}
             autoFocus/>
         : <span onDoubleClick={activateEditMode}>{props.title}</span>
-};
+});

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValuesType} from "../App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -25,21 +25,30 @@ export type TaskType = {
     isDone: boolean
 };
 
-export function Todolist(props: TodolistPropsType) {
-    const addTask = (title: string) => {
+export const Todolist = React.memo((props: TodolistPropsType) => {
+    console.log('Todolist called');
+    const addTask = useCallback((title: string)=>{
         props.addTask(title, props.id)
-    };
-    const onAllClickHandler = () => {
+    },[props.addTask, props.id]);
+    const onAllClickHandler = useCallback(() => {
         props.changeFilter('all', props.id)
-    };
-    const onActiveClickHandler = () => {
+    },[props.changeFilter, props.id]);
+    const onActiveClickHandler = useCallback(() => {
         props.changeFilter('active', props.id)
-    };
-    const onCompletedClickHandler = () => {
+    },[props.changeFilter, props.id]);
+    const onCompletedClickHandler = useCallback(() => {
         props.changeFilter('completed', props.id)
-    };
+    },[props.changeFilter, props.id]);
 
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.id, newTitle);
+
+    let tasksForTodoList = props.tasks;
+    if (props.filter === 'active') {
+        tasksForTodoList = props.tasks.filter(task => !task.isDone)
+    }
+    if (props.filter === 'completed') {
+        tasksForTodoList = props.tasks.filter(task => task.isDone)
+    }
     return (
         <div>
             <h3 className={"removeTlButton"}>
@@ -50,7 +59,7 @@ export function Todolist(props: TodolistPropsType) {
                 <AddItemForm addItem={addTask}/>
             </div>
             <div>
-                {props.tasks.map((tasks) => {
+                {tasksForTodoList.map((tasks) => {
                     const onClickRemoveTask = () => props.removeTask(tasks.id, props.id);
                     const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) => {
                         let newIsDoneValue = e.currentTarget.checked
@@ -84,4 +93,4 @@ export function Todolist(props: TodolistPropsType) {
             </div>
         </div>
     );
-}
+});
