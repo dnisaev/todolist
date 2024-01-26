@@ -36,7 +36,7 @@ export type ChangeTaskTitleActionType = {
     todolistId: string
 }
 
-const initialState: TasksStateType = {
+const initialState = {
     [todolistID1]: [
         {id: v1(), title: 'HTML&CSS', isDone: true},
         {id: v1(), title: 'JS', isDone: true},

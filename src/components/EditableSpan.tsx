@@ -5,28 +5,28 @@ type EditableSpanType = {
     title: string
     onChange: (newValue: string) => void
 }
-export const EditableSpan = React.memo((props: EditableSpanType) => {
+export const EditableSpan = React.memo(({title, onChange}: EditableSpanType) => {
     console.log('EditableSpan is called');
     let [editMode, setEditMode] = useState(false);
-    let [title, setTitle] = useState('');
+    let [value, setValue] = useState('');
     const activateEditMode = () => {
         setEditMode(true);
-        setTitle(props.title);
+        setValue(title);
     };
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value);
+        setValue(e.currentTarget.value);
     };
     const activateViewMode = () => {
         setEditMode(false);
-        props.onChange(title);
+        onChange(value);
     };
 
     return editMode
         ? <TextField
             variant={'outlined'}
-            value={title}
+            value={value}
             onBlur={activateViewMode}
             onChange={onChangeHandler}
             autoFocus/>
-        : <span onDoubleClick={activateEditMode}>{props.title}</span>
+        : <span onDoubleClick={activateEditMode}>{title}</span>
 });
