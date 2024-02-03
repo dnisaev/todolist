@@ -87,7 +87,7 @@ export const todolistsAPI = {
       )
     },
     updateTask(todolistId: string, taskId: string, taskTitle: string) {
-        return instance.put<UpdateTaskType>(
+        return instance.put<ResponseType>(
             `todo-lists/${todolistId}/tasks/${taskId}/`,
             {title: taskTitle}
         )
