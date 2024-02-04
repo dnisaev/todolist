@@ -2,6 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
 import {Task} from "../components/Task";
 import {v1} from "uuid";
+import {TaskStatuses} from "../api/todolists-api";
 
 // More on how to set up stories at:
 // https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -13,7 +14,7 @@ const meta: Meta<typeof Task> = {
     tags: ['autodocs'],
     // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
     args: {
-        task: {id: v1(), title: 'React', isDone: false},
+        task: {id: v1(), title: 'React', status: TaskStatuses.New},
         todolistId: v1(),
         changeTaskStatus: action('Status changed inside Task'),
         changeTaskTitle: action('Title changed inside Task'),
@@ -31,6 +32,6 @@ export const TaskIsNotDoneStory: Story = {};
 export const TaskIsDoneStory: Story = {
     // More on args: https://storybook.js.org/docs/react/writing-stories/args
     args: {
-        task: {id: v1(), title: 'JS', isDone: true}
+        task: {id: v1(), title: 'JS', status: TaskStatuses.Completed}
     },
 };
