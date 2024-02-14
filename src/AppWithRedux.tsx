@@ -6,10 +6,10 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Typography} from "@m
 import Toolbar from '@mui/material/Toolbar';
 import {Menu} from "@mui/icons-material";
 import {
-    addTodolistAC,
+    addTodolistTC,
     changeTodolistFilterAC,
     changeTodolistTitleAC, fetchTodolistsTC, FilterValuesType,
-    removeTodolistAC, TodolistDomainType
+    removeTodolistTC, TodolistDomainType
 } from "./state/todolists-reducer";
 import {
     addTaskTC,
@@ -43,8 +43,8 @@ function AppWithRedux() {
         dispatch(thunk);
     },[]);
 
-    const addTask = useCallback((title: string, todolistId: string)=>{
-        const thunk = addTaskTC(title, todolistId);
+    const addTask = useCallback((todolistId: string, title: string)=>{
+        const thunk = addTaskTC(todolistId, title);
         dispatch(thunk);
     },[]);
 
@@ -59,13 +59,13 @@ function AppWithRedux() {
     },[]);
 
     const removeTodolist = useCallback((id: string)=>{
-        const action = removeTodolistAC(id);
-        dispatch(action);
+        const thunk = removeTodolistTC(id);
+        dispatch(thunk);
     },[]);
 
     const addTodoList = useCallback((title:string)=>{
-        const action = addTodolistAC(title);
-        dispatch(action);
+        const thunk = addTodolistTC(title);
+        dispatch(thunk);
     },[]);
 
     const changeTaskTitle = useCallback((id: string, title: string, todolistId: string)=>{

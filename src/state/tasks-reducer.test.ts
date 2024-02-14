@@ -8,6 +8,7 @@ import {
 import {addTodolistAC, removeTodolistAC} from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses} from "../api/todolists-api";
 import { TasksStateType } from '../AppWithRedux';
+import {v1} from "uuid";
 
 let startState: TasksStateType
 
@@ -44,15 +45,16 @@ test('correct task should be deleted from correct array', () => {
     })
 })
 
-test.skip('correct task should be added to correct array', () => {
+test('correct task should be added to correct array', () => {
 
-    const action = addTaskAC({id: '1', title: 'CSS', status: TaskStatuses.New, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low})
+    const action = addTaskAC({id: '0', title: 'TypeScript', status: TaskStatuses.New, todoListId: "todolistId1", description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low})
     const endState = tasksReducer(startState, action)
 
-    expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId2'].length).toBe(4)
+    expect(endState['todolistId1'].length).toBe(4)
+    expect(endState['todolistId1'][0].title).toBe('TypeScript')
+    expect(endState['todolistId2'].length).toBe(3)
     expect(endState['todolistId2'][0].id).toBeDefined()
-    expect(endState['todolistId2'][0].title).toBe('juice')
+    expect(endState['todolistId2'][0].title).toBe('bread')
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.New)
 })
 
@@ -98,8 +100,8 @@ test('title of specified task should be changed', () => {
 })
 
 test('new array should be added when new todolist is added', () => {
-
-    const action = addTodolistAC('new todolist')
+    let newTodolist = {id: v1(), title: 'What to learn', addedDate: '', order: 0}
+    const action = addTodolistAC(newTodolist)
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState)
