@@ -14,7 +14,7 @@ const taskId2 = '6c3ca966-8699-41db-bfa2-9a36342c5dd9';
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistsAPI.getTodolist().then(response => {
+        todolistsAPI.getTodolists().then(response => {
             setState(response.data)
         })
     }, [])
