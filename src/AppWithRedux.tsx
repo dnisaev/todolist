@@ -8,7 +8,7 @@ import {Menu} from "@mui/icons-material";
 import {
     addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleTC, fetchTodolistsTC, FilterValuesType,
+    changeTodolistTitleTC, fetchThenTodolistsTC, fetchAsyncTodolistsTC, FilterValuesType,
     removeTodolistTC, TodolistDomainType
 } from "./state/todolists-reducer";
 import {
@@ -18,7 +18,7 @@ import {
     updateTaskStatusTC
 } from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./state/store";
+import {AppActionsType, AppRootStateType} from "./state/store";
 import {TaskStatuses, TaskType} from "./api/todolists-api";
 import {Dispatch} from "redux";
 
@@ -32,7 +32,7 @@ function AppWithRedux() {
     const dispatch: Dispatch<any> = useDispatch();
 
     useEffect(()=>{
-        dispatch(fetchTodolistsTC())
+        dispatch(fetchAsyncTodolistsTC())
     },[dispatch])
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists);
