@@ -94,16 +94,11 @@ export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActi
     return {type: 'SET-TODOLISTS', todolists}
 }
 
-export const fetchThenTodolistsTC = () => (dispatch: Dispatch<AppActionsType>) => {
+export const fetchTodolistsTC = () => (dispatch: Dispatch<AppActionsType>) => {
     todolistsAPI.getTodolists().then(response => {
         const action = setTodolistsAC(response.data)
         dispatch(action)
     })
-}
-
-export const fetchAsyncTodolistsTC = () => async (dispatch: Dispatch<AppActionsType>) => {
-    const response = await todolistsAPI.getTodolists()
-    dispatch(setTodolistsAC(response.data))
 }
 
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<AppActionsType>) => {

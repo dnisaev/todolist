@@ -8,7 +8,7 @@ import {Menu} from "@mui/icons-material";
 import {
     addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleTC, fetchThenTodolistsTC, FilterValuesType,
+    changeTodolistTitleTC, fetchTodolistsTC, FilterValuesType,
     removeTodolistTC, TodolistDomainType
 } from "./state/todolists-reducer";
 import {
@@ -31,7 +31,7 @@ function AppWithRedux() {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(fetchThenTodolistsTC())
+        dispatch(fetchTodolistsTC())
     },[dispatch])
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists);
