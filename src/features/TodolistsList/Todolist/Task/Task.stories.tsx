@@ -1,8 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import {Task} from "../components/Task";
+import {Task} from "./Task";
 import {v1} from "uuid";
-import {TaskStatuses} from "../api/todolists-api";
+import {TaskStatuses} from "../../../../api/todolists-api";
 
 // More on how to set up stories at:
 // https://storybook.js.org/docs/react/writing-stories/introduction#default-export
