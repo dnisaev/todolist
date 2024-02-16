@@ -1,7 +1,6 @@
 import {
     addTaskAC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
+    changeTaskAC,
     removeTaskAC, setTasksAC,
     tasksReducer
 } from '../tasks-reducer'
@@ -60,7 +59,16 @@ test('correct task should be added to correct array', () => {
 
 test('status of specified task should be changed', () => {
 
-    const action = changeTaskStatusAC('1', TaskStatuses.Completed, 'todolistId2')
+    const model = {
+        title: 'bread',
+        description: '',
+        status: TaskStatuses.Completed,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: ''
+    }
+
+    const action = changeTaskAC('1', model, 'todolistId2')
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][0].status).toBe(TaskStatuses.Completed)
@@ -81,7 +89,16 @@ test('status of specified task should be changed', () => {
 
 test('title of specified task should be changed', () => {
 
-    const action = changeTaskTitleAC('1', 'beer', 'todolistId2')
+    const model = {
+        title: 'beer',
+        description: '',
+        status: TaskStatuses.New,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: ''
+    }
+
+    const action = changeTaskAC('1', model, 'todolistId2')
     const endState = tasksReducer(startState, action)
 
     expect(endState['todolistId2'][0].title).toBe('beer')
