@@ -15,6 +15,7 @@ import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 
 export const TodolistsList = () => {
+    console.log('TodolistsList is called');
 
     const dispatch: AppDispatch = useDispatch();
 
