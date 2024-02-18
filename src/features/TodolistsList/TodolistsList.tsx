@@ -82,6 +82,7 @@ export const TodolistsList = () => {
                                           removeTodolist={removeTodolist}
                                           changeTaskTitle={changeTaskTitle}
                                           changeTodolistTitle={changeTodolistTitle}
+                                          entityStatus={todolist.entityStatus}
                                 />
                             </Paper>
                         </Grid>

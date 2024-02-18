@@ -4,14 +4,17 @@ import {TextField} from "@mui/material";
 type EditableSpanType = {
     title: string
     onChange: (newValue: string) => void
+    disabled?: boolean
 }
-export const EditableSpan = React.memo(({title, onChange}: EditableSpanType) => {
+export const EditableSpan = React.memo(({title, onChange, disabled}: EditableSpanType) => {
     console.log('EditableSpan is called');
     let [editMode, setEditMode] = useState(false);
     let [value, setValue] = useState('');
     const activateEditMode = () => {
-        setEditMode(true);
-        setValue(title);
+        if (!disabled) {
+            setEditMode(true);
+            setValue(title);
+        }
     };
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value);
