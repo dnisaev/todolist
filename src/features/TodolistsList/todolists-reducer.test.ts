@@ -18,8 +18,8 @@ beforeEach( ()=> {
     todolistId2 = v1()
 
     startState = [
-        {id: todolistId1, title: 'What to learn', filter: 'all', entityStatus: 'succeeded', addedDate: '', order: 0},
-        {id: todolistId2, title: 'What to buy', filter: 'all', entityStatus: 'succeeded', addedDate: '', order: 0}
+        {id: todolistId1, title: 'What to learn', filter: 'all', entityStatus: 'idle', addedDate: '', order: 0},
+        {id: todolistId2, title: 'What to buy', filter: 'all', entityStatus: 'idle', addedDate: '', order: 0}
     ]
 })
 
@@ -31,12 +31,13 @@ test('correct todolist should be removed', () => {
 })
 
 test('correct todolist should be added', () => {
-    let newTodolist = {id: v1(), title: 'What to learn', addedDate: '', order: 0}
+    let newTodolist = {id: v1(), title: 'New Todolist', filter: 'all', entityStatus: 'idle', addedDate: '', order: 0}
 
     const endState = todolistsReducer(startState, addTodolistAC(newTodolist))
 
     expect(endState.length).toBe(3)
-    expect(endState[0].title).toBe(newTodolist.title)
+    expect(endState[0].title).toBe('New Todolist')
+    expect(endState[0].entityStatus).toBe('idle')
 })
 
 test('correct todolist should change its name', () => {
@@ -61,7 +62,6 @@ test('todolists should be set to the state', () => {
     const action = setTodolistsAC(startState)
 
     const endState = todolistsReducer([], action)
-
     expect(endState.length).toBe(2)
 })
 
