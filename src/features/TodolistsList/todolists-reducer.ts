@@ -53,8 +53,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<Glob
     todolistsAPI.deleteTodolist(todolistId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                const action = removeTodolistAC(todolistId)
-                dispatch(action)
+                dispatch(removeTodolistAC(todolistId))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -69,8 +68,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<GlobalAction
     todolistsAPI.createTodolist(title)
         .then(res => {
             if (res.data.resultCode === 0) {
-                const todolist = res.data.data.item
-                dispatch(addTodolistAC(todolist))
+                dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -85,8 +83,7 @@ export const changeTodolistTitleTC = (todolistId: string, title: string) => (dis
     todolistsAPI.updateTodolist(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
-                const action = changeTodolistTitleAC(todolistId, title)
-                dispatch(action)
+                dispatch(changeTodolistTitleAC(todolistId, title))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
