@@ -14,14 +14,21 @@ import {Grid, Paper} from "@mui/material";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 
-export const TodolistsList = () => {
+type PropsType = {
+    demo?: boolean
+}
+
+export const TodolistsList = ({demo = false}: PropsType) => {
     console.log('TodolistsList is called');
 
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists);
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
@@ -83,6 +90,7 @@ export const TodolistsList = () => {
                                           changeTaskTitle={changeTaskTitle}
                                           changeTodolistTitle={changeTodolistTitle}
                                           entityStatus={todolist.entityStatus}
+                                          demo={demo}
                                 />
                             </Paper>
                         </Grid>

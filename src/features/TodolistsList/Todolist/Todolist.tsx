@@ -15,25 +15,34 @@ type TodolistPropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
+    filter: FilterValuesType
+    addTask: (todolistId: string, title: string) => void
     removeTask: (taskId: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
-    addTask: (todolistId: string, title: string) => void
     changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
     changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
-    filter: FilterValuesType
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     entityStatus: RequestStatusType
+    demo?: boolean
 };
 
-export const Todolist = React.memo(({id, title, tasks, removeTask, changeFilter, addTask, changeTaskStatus, changeTaskTitle, filter, removeTodolist, changeTodolistTitle, entityStatus}: TodolistPropsType) => {
+export const Todolist = React.memo(({
+                                        id, title, tasks, filter, addTask, removeTask,
+                                        changeFilter, changeTaskStatus, changeTaskTitle,
+                                        removeTodolist, changeTodolistTitle, entityStatus,
+                                        demo = false
+                                    }: TodolistPropsType) => {
     console.log('Todolist is called');
 
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTasksTC(id))
-    }, [dispatch, id])
+    }, [dispatch, id, demo])
 
     const onAddTask = useCallback((title: string) =>
         addTask(id, title), [addTask, id]);
