@@ -73,23 +73,20 @@ export const TodolistsList = ({demo = false}: PropsType) => {
             </Grid>
             <Grid container spacing={3}>
                 {
-                    todolists.map(todolist => {
-                        let tasksForTodoList = tasks[todolist.id]
-                        return <Grid key={todolist.id} item>
+                    todolists.map(tl => {
+                        let tasksForTodoList = tasks[tl.id]
+                        return <Grid key={tl.id} item>
                             <Paper style={{padding: '10px'}}>
-                                <Todolist key={todolist.id}
-                                          id={todolist.id}
-                                          title={todolist.title}
+                                <Todolist key={tl.id}
+                                          todolist={tl}
                                           tasks={tasksForTodoList}
                                           removeTask={removeTask}
                                           changeFilter={changeFilter}
                                           addTask={addTask}
                                           changeTaskStatus={changeTaskStatus}
-                                          filter={todolist.filter}
                                           removeTodolist={removeTodolist}
                                           changeTaskTitle={changeTaskTitle}
                                           changeTodolistTitle={changeTodolistTitle}
-                                          entityStatus={todolist.entityStatus}
                                           demo={demo}
                                 />
                             </Paper>
