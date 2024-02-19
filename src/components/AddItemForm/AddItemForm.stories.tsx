@@ -1,33 +1,22 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {action} from '@storybook/addon-actions';
 import {AddItemForm} from "./AddItemForm";
+import {action} from "@storybook/addon-actions";
 
-// More on how to set up stories at:
-// https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-const meta: Meta<typeof AddItemForm> = {
+export default {
     title: 'TODOLISTS/AddItemForm',
     component: AddItemForm,
-    // This component will have an automatically generated Autodocs entry:
-    // https://storybook.js.org/docs/react/writing-docs/autodocs
-    tags: ['autodocs'],
-    // More on argTypes:
-    // https://storybook.js.org/docs/react/api/argtypes
-    argTypes: {
-        addItem: {
-            description: 'Button clicked inside form',
-            action: 'clicked'
-        }
-    },
+    tags: ['autodocs']
 };
 
-export default meta;
-type Story = StoryObj<typeof AddItemForm>;
+export const AddItemFormStory = () => {
+    return <AddItemForm
+        disabled={false}
+        addItem={action('Button clicked inside form')}
+    />
+}
 
-// More on component templates:
-// https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-export const AddItemFormStory: Story = {
-    // More on args: https://storybook.js.org/docs/react/writing-stories/args
-    args: {
-        addItem: action('Button clicked inside form')
-    },
-};
+export const AddItemFormDisabledStory = () => {
+    return <AddItemForm
+        disabled={true}
+        addItem={()=>{}}
+    />
+}

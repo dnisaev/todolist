@@ -39,16 +39,16 @@ export const Todolist = React.memo(({
         dispatch(fetchTasksTC(todolist.id))
     }, [dispatch, todolist.id, demo])
 
-    const onAddTask = useCallback((title: string) =>
+    const addTaskHandler = useCallback((title: string) =>
         addTask(todolist.id, title), [addTask, todolist.id]);
+    const changeTodolistTitleHandler = useCallback((newTitle: string) =>
+        changeTodolistTitle(todolist.id, newTitle), [changeTodolistTitle, todolist.id]);
     const onAllClickHandler = useCallback(() =>
         changeFilter('all', todolist.id), [changeFilter, todolist.id]);
     const onActiveClickHandler = useCallback(() =>
         changeFilter('active', todolist.id), [changeFilter, todolist.id]);
     const onCompletedClickHandler = useCallback(() =>
         changeFilter('completed', todolist.id), [changeFilter, todolist.id]);
-    const onChangeTodolistTitle = useCallback((newTitle: string) =>
-        changeTodolistTitle(todolist.id, newTitle), [changeTodolistTitle, todolist.id]);
 
     let tasksForTodoList = tasks;
     if (todolist.filter === 'active') {
@@ -60,13 +60,17 @@ export const Todolist = React.memo(({
     return (
         <div>
             <h3 className={"removeTlButton"}>
-                <EditableSpan title={todolist.title} onChange={onChangeTodolistTitle}
+                <EditableSpan title={todolist.title}
+                              onChange={changeTodolistTitleHandler}
                               disabled={todolist.entityStatus === 'loading'}/>
                 <IconButton onClick={() => removeTodolist(todolist.id)}
-                            disabled={todolist.entityStatus === 'loading'}><Delete/></IconButton>
+                            disabled={todolist.entityStatus === 'loading'}>
+                    <Delete/>
+                </IconButton>
             </h3>
             <div>
-                <AddItemForm addItem={onAddTask} disabled={todolist.entityStatus === 'loading'}/>
+                <AddItemForm addItem={addTaskHandler}
+                             disabled={todolist.entityStatus === 'loading'}/>
             </div>
             <div>
                 {tasksForTodoList.map((tasks) => {
