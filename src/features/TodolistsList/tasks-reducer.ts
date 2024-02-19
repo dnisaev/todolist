@@ -61,7 +61,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<GlobalAc
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<GlobalActionsType>) => {
@@ -77,7 +77,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch<GlobalActionsType>) => {
@@ -92,7 +92,7 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) =>
@@ -121,10 +121,11 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                         dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'succeeded'))
                     } else {
                         handleServerAppError(res.data, dispatch)
+                        dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'failed'))
                     }
                 })
                 .catch((error) => {
-                    handleServerNetworkError(error.message, dispatch)
+                    handleServerNetworkError(error, dispatch)
                 })
         }
     }

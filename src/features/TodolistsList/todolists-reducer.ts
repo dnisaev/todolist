@@ -60,7 +60,7 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<Glob
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<GlobalActionsType>) => {
@@ -75,22 +75,25 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<GlobalAction
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 export const changeTodolistTitleTC = (todolistId: string, title: string) => (dispatch: Dispatch<GlobalActionsType>) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(changeTodolistEntityStatusAC(todolistId, 'loading'))
     todolistsAPI.updateTodolist(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(changeTodolistTitleAC(todolistId, title))
                 dispatch(setAppStatusAC('succeeded'))
+                dispatch(changeTodolistEntityStatusAC(todolistId, 'succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
+                dispatch(changeTodolistEntityStatusAC(todolistId, 'failed'))
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message, dispatch)
+            handleServerNetworkError(error, dispatch)
         })
 }
 
