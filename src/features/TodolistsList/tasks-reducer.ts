@@ -57,8 +57,7 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<GlobalAc
     dispatch(setAppStatusAC('loading'))
     todolistsAPI.getTasks(todolistId)
         .then(res => {
-            const action = setTasksAC(res.data.items, todolistId)
-            dispatch(action)
+            dispatch(setTasksAC(res.data.items, todolistId))
             dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error) => {
@@ -71,8 +70,7 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
     todolistsAPI.deleteTask(todolistId, taskId)
         .then(res => {
             if (res.data.resultCode === 0) {
-                const action = removeTaskAC(taskId, todolistId)
-                dispatch(action)
+                dispatch(removeTaskAC(taskId, todolistId))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -87,8 +85,7 @@ export const addTaskTC = (todolistId: string, title: string) => (dispatch: Dispa
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
             if (res.data.resultCode === 0) {
-                const task = res.data.data.item
-                dispatch(addTaskAC(task))
+                dispatch(addTaskAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
@@ -119,8 +116,7 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
             todolistsAPI.updateTask(todolistId, taskId, apiModel)
                 .then((res) => {
                     if (res.data.resultCode === 0) {
-                        const action = changeTaskAC(taskId, domainModel, todolistId)
-                        dispatch(action)
+                        dispatch(changeTaskAC(taskId, domainModel, todolistId))
                         dispatch(setAppStatusAC('succeeded'))
                         dispatch(changeTaskEntityStatusAC(taskId, todolistId, 'succeeded'))
                     } else {
