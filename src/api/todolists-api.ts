@@ -13,12 +13,12 @@ const instance = axios.create({
 export const todolistsAPI = {
     getTodolists() {
         return instance.get<TodolistType[]>(
-            `/todo-lists`
+            `todo-lists`
         )
     },
     createTodolist(title: string) {
         return instance.post<ResponseType<{item: TodolistType}>>(
-            `/todo-lists`,
+            `todo-lists`,
             {title: title}
         )
     },
@@ -51,7 +51,25 @@ export const todolistsAPI = {
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(
-            `/todo-lists/${todolistId}/tasks/${taskId}`
+            `todo-lists/${todolistId}/tasks/${taskId}`
+        )
+    }
+}
+export const authAPI = {
+    login(payload: LoginParamsType){
+        return instance.post<ResponseType<{userId: number}>>(
+            `auth/login`,
+            payload
+        )
+    },
+    logout(){
+        return instance.delete<ResponseType>(
+            `auth/login`
+        )
+    },
+    me(){
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>(
+            '/auth/me'
         )
     }
 }
@@ -107,4 +125,10 @@ type GetTasksResponse = {
     items: Array<TaskType>
     totalCount: number
     error: string
+}
+type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: boolean
 }

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {AppBar, Button, Container, IconButton, LinearProgress, Typography} from "@mui/material";
+import {AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Typography} from "@mui/material";
 import Toolbar from '@mui/material/Toolbar';
 import {Menu} from "@mui/icons-material";
-import { TodolistsList } from '../features/TodolistsList/TodolistsList';
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
-import {RequestStatusType} from "./app-reducer";
-import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar';
+import {TodolistsList} from '../features/TodolistsList/TodolistsList';
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType} from "./store";
+import {initializeAppTC, RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar';
+import {Login} from '../features/Login/Login';
+import {Navigate, Route, Routes} from "react-router-dom";
+import {logoutTC} from "../features/Login/auth-reducer";
 
 type PropsType = {
     demo?: boolean
@@ -17,6 +20,24 @@ function App({demo = false}: PropsType) {
     console.log('App is called')
 
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch: AppDispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [dispatch])
+
+    const onClickLogout = () => {
+        dispatch(logoutTC())
+    }
+
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
 
     return (
         <div className="App">
@@ -29,12 +50,20 @@ function App({demo = false}: PropsType) {
                     <Typography variant={'h6'}>
                         Todolist
                     </Typography>
-                    <Button color={'inherit'}>Login</Button>
+                    {isLoggedIn
+                        ? <Button color={'inherit'} onClick={onClickLogout}>Logout</Button>
+                        : <Button color={'inherit'}>Login</Button>
+                    }
                 </Toolbar>
                 {status === 'loading' && <LinearProgress/>}
             </AppBar>
             <Container fixed>
-                <TodolistsList demo={demo}/>
+                <Routes>
+                    <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
+                </Routes>
             </Container>
         </div>
     );
