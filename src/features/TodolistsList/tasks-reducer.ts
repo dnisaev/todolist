@@ -1,7 +1,12 @@
 import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../api/todolists-api";
 import {Dispatch} from "redux";
 import {GlobalActionsType, AppRootStateType} from "../../app/store";
-import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistActionType} from "./todolists-reducer";
+import {
+    AddTodolistActionType,
+    ClearDataActionType,
+    RemoveTodolistActionType,
+    SetTodolistActionType
+} from "./todolists-reducer";
 import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
@@ -32,8 +37,12 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Tasks
         case 'SET-TASKS':
             return {...state, [action.todolistId]: action.tasks}
         case 'CHANGE-TASK-ENTITY-STATUS':
-            return {...state, [action.todolistId]: state[action.todolistId]
-                    .map(t => t.id === action.taskId ? {...t, entityStatus: action.status} : t)}
+            return {
+                ...state, [action.todolistId]: state[action.todolistId]
+                    .map(t => t.id === action.taskId ? {...t, entityStatus: action.status} : t)
+            }
+        case "CLEAR-DATA":
+            return {}
         default:
             return state;
     }
@@ -148,6 +157,7 @@ export type TasksActionsType =
     | AddTodolistActionType
     | RemoveTodolistActionType
     | SetTodolistActionType
+    | ClearDataActionType
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }

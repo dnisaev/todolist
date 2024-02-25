@@ -3,6 +3,7 @@ import {setAppStatusAC} from '../../app/app-reducer'
 import {GlobalActionsType} from "../../app/store";
 import {authAPI, LoginParamsType} from "../../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {clearTodosDataAC} from "../TodolistsList/todolists-reducer";
 
 const initialState = {
     isLoggedIn: false
@@ -43,6 +44,7 @@ export const logoutTC = () => (dispatch: Dispatch<GlobalActionsType>) => {
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setIsLoggedInAC(false))
+                dispatch(clearTodosDataAC())
                 dispatch(setAppStatusAC('succeeded'))
             } else {
                 handleServerAppError(res.data, dispatch)
