@@ -34,7 +34,9 @@ export const Login = () => {
             rememberMe: false
         },
         validate: (values) => {
+
             const errors: FormikErrorType = {}
+
             if (!values.email) {
                 errors.email = 'Required'
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -50,7 +52,6 @@ export const Login = () => {
             return errors
         },
         onSubmit: values => {
-            //alert(JSON.stringify(values))
             formik.resetForm()
             dispatch(loginTC(values))
         },

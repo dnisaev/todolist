@@ -126,7 +126,7 @@ type GetTasksResponse = {
     totalCount: number
     error: string
 }
-type LoginParamsType = {
+export type LoginParamsType = {
     email: string
     password: string
     rememberMe?: boolean

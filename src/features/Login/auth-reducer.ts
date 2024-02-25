@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux'
 import {setAppStatusAC} from '../../app/app-reducer'
 import {GlobalActionsType} from "../../app/store";
-import {authAPI} from "../../api/todolists-api";
+import {authAPI, LoginParamsType} from "../../api/todolists-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState = {
@@ -22,7 +22,7 @@ export const setIsLoggedInAC = (value: boolean) =>
     ({type: 'login/SET-IS-LOGGED-IN', value} as const)
 
 // thunks
-export const loginTC = (data: any) => (dispatch: Dispatch<GlobalActionsType>) => {
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<GlobalActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(data)
         .then(res => {
