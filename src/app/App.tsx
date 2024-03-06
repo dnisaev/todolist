@@ -25,7 +25,9 @@ function App({ demo = false }: PropsType) {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initializeAppTC());
+    if (!demo) {
+      dispatch(initializeAppTC());
+    }
   }, [dispatch]);
 
   const logoutHandler = useCallback(() => {
