@@ -4,7 +4,6 @@ import { action } from "@storybook/addon-actions";
 export default {
   title: "TODOLISTS/AddItemForm",
   component: AddItemForm,
-  tags: ["autodocs"],
 };
 
 export const AddItemFormStory = () => {

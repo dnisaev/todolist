@@ -28,7 +28,7 @@ export function App({ demo = false }: PropsType) {
     if (!demo) {
       dispatch(initializeAppTC());
     }
-  }, [dispatch]);
+  }, [dispatch, demo]);
 
   const logoutHandler = useCallback(() => {
     dispatch(logoutTC());
