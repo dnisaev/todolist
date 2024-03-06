@@ -10,6 +10,7 @@ import { v1 } from "uuid";
 import { TaskPriorities, TaskStatuses } from "api/todolists-api";
 import { authReducer } from "features/Login/auth-reducer";
 import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
 
 const rootReducer = combineReducers({
   tasks: tasksReducer,
@@ -104,10 +105,10 @@ const initialGlobalState: AppRootStateType = {
   app: {
     status: "idle",
     error: null,
-    isInitialized: false,
+    isInitialized: true,
   },
   auth: {
-    isLoggedIn: false,
+    isLoggedIn: true,
   },
 };
 
@@ -118,5 +119,9 @@ export const storyBookStore = configureStore({
 });
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
-  return <Provider store={storyBookStore}>{storyFn()}</Provider>;
+  return (
+    <Provider store={storyBookStore}>
+      <MemoryRouter>{storyFn()}</MemoryRouter>
+    </Provider>
+  );
 };

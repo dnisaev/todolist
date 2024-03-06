@@ -1,12 +1,11 @@
-import App from "./App";
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
-import StoryRouter from "storybook-react-router";
+import { App } from "./App";
 
 export default {
   title: "TODOLISTS/AppStories",
   component: App,
   tags: ["autodocs"],
-  decorators: [ReduxStoreProviderDecorator, StoryRouter()],
+  decorators: [ReduxStoreProviderDecorator],
 };
 
 export const AppStory = () => {
