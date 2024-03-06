@@ -1,9 +1,9 @@
-import { AppDispatch, AppRootStateType } from "../../app/store";
+import { AppDispatch, AppRootStateType } from "app/store";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect } from "react";
 import {
   addTodolistTC,
-  changeTodolistFilterAC,
+  changeTodolistFilter,
   changeTodolistTitleTC,
   fetchTodolistsTC,
   FilterValuesType,
@@ -11,9 +11,9 @@ import {
   TodolistDomainType,
 } from "./todolists-reducer";
 import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "./tasks-reducer";
-import { TaskStatuses } from "../../api/todolists-api";
+import { TaskStatuses } from "api/todolists-api";
 import { Grid, Paper } from "@mui/material";
-import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
+import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
 
@@ -61,7 +61,7 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
   );
   const changeFilter = useCallback(
     (value: FilterValuesType, todolistId: string) => {
-      const action = changeTodolistFilterAC(todolistId, value);
+      const action = changeTodolistFilter({ id: todolistId, filter: value });
       dispatch(action);
     },
     [dispatch],

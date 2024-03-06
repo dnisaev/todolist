@@ -3,14 +3,14 @@ import "./App.css";
 import { AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Typography } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import { Menu } from "@mui/icons-material";
-import { TodolistsList } from "../features/TodolistsList/TodolistsList";
+import { TodolistsList } from "features/TodolistsList/TodolistsList";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppRootStateType } from "./store";
 import { initializeAppTC, RequestStatusType } from "./app-reducer";
-import { ErrorSnackbar } from "../components/ErrorSnackbar/ErrorSnackbar";
-import { Login } from "../features/Login/Login";
+import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { Login } from "features/Login/Login";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { logoutTC } from "../features/Login/auth-reducer";
+import { logoutTC } from "features/Login/auth-reducer";
 
 type PropsType = {
   demo?: boolean;

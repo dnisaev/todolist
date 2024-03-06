@@ -1,6 +1,10 @@
-import { appReducer, InitialStateType, setAppErrorAC, setAppStatusAC } from "./app-reducer";
+import { appActions, appReducer, RequestErrorType, RequestStatusType } from "./app-reducer";
 
-let startState: InitialStateType;
+let startState: {
+  status: RequestStatusType;
+  error: RequestErrorType;
+  isInitialized: boolean;
+};
 
 beforeEach(() => {
   startState = {
@@ -11,13 +15,13 @@ beforeEach(() => {
 });
 
 test("correct error message should be set", () => {
-  const endState = appReducer(startState, setAppErrorAC("Error message"));
+  const endState = appReducer(startState, appActions.setAppError({ error: "Error message" }));
 
   expect(endState.error).toBe("Error message");
 });
 
 test("correct status should be set", () => {
-  const endState = appReducer(startState, setAppStatusAC("loading"));
+  const endState = appReducer(startState, appActions.setAppStatus({ status: "loading" }));
 
   expect(endState.status).toBe("loading");
 });
