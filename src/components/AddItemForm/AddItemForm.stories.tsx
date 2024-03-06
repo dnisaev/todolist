@@ -1,22 +1,16 @@
-import {AddItemForm} from "./AddItemForm";
-import {action} from "@storybook/addon-actions";
+import { AddItemForm } from "./AddItemForm";
+import { action } from "@storybook/addon-actions";
 
 export default {
-    title: 'TODOLISTS/AddItemForm',
-    component: AddItemForm,
-    tags: ['autodocs']
+  title: "TODOLISTS/AddItemForm",
+  component: AddItemForm,
+  tags: ["autodocs"],
 };
 
 export const AddItemFormStory = () => {
-    return <AddItemForm
-        disabled={false}
-        addItem={action('Button clicked inside form')}
-    />
-}
+  return <AddItemForm disabled={false} addItem={action("Button clicked inside form")} />;
+};
 
 export const AddItemFormDisabledStory = () => {
-    return <AddItemForm
-        disabled={true}
-        addItem={()=>{}}
-    />
-}
+  return <AddItemForm disabled={true} addItem={() => {}} />;
+};

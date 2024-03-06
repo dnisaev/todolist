@@ -1,107 +1,133 @@
-import {AppDispatch, AppRootStateType} from "../../app/store";
-import {useDispatch, useSelector} from "react-redux";
-import React, {useCallback, useEffect} from "react";
+import { AppDispatch, AppRootStateType } from "../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect } from "react";
 import {
-    addTodolistTC,
-    changeTodolistFilterAC, changeTodolistTitleTC,
-    fetchTodolistsTC,
-    FilterValuesType, removeTodolistTC,
-    TodolistDomainType
+  addTodolistTC,
+  changeTodolistFilterAC,
+  changeTodolistTitleTC,
+  fetchTodolistsTC,
+  FilterValuesType,
+  removeTodolistTC,
+  TodolistDomainType,
 } from "./todolists-reducer";
-import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from "./tasks-reducer";
-import {TaskStatuses} from "../../api/todolists-api";
-import {Grid, Paper} from "@mui/material";
-import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
-import {Todolist} from "./Todolist/Todolist";
-import {Navigate} from "react-router-dom";
+import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "./tasks-reducer";
+import { TaskStatuses } from "../../api/todolists-api";
+import { Grid, Paper } from "@mui/material";
+import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
+import { Todolist } from "./Todolist/Todolist";
+import { Navigate } from "react-router-dom";
 
 type PropsType = {
-    demo?: boolean
-}
+  demo?: boolean;
+};
 
-export const TodolistsList = ({demo = false}: PropsType) => {
+export const TodolistsList = ({ demo = false }: PropsType) => {
+  console.log("TodolistsList is called");
 
-    console.log('TodolistsList is called');
+  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+  const dispatch: AppDispatch = useDispatch();
 
-    const dispatch: AppDispatch = useDispatch();
-
-    useEffect(() => {
-        if (demo || !isLoggedIn) {
-            return
-        }
-        dispatch(fetchTodolistsTC())
-    }, [dispatch, demo, isLoggedIn])
-
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists);
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks);
-
-    const removeTask = useCallback((id: string, todolistId: string) => {
-        const thunk = removeTaskTC(id, todolistId);
-        dispatch(thunk);
-    }, [dispatch]);
-    const addTask = useCallback((todolistId: string, title: string) => {
-        const thunk = addTaskTC(todolistId, title);
-        dispatch(thunk);
-    }, [dispatch]);
-    const changeTaskStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        const thunk = updateTaskTC(id, {status}, todolistId);
-        dispatch(thunk);
-    }, [dispatch]);
-    const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
-        const action = changeTodolistFilterAC(todolistId, value);
-        dispatch(action);
-    }, [dispatch]);
-    const removeTodolist = useCallback((id: string) => {
-        const thunk = removeTodolistTC(id);
-        dispatch(thunk);
-    }, [dispatch]);
-    const addTodoList = useCallback((title: string) => {
-        const thunk = addTodolistTC(title);
-        dispatch(thunk);
-    }, [dispatch]);
-    const changeTaskTitle = useCallback((id: string, title: string, todolistId: string) => {
-        const thunk = updateTaskTC(id, {title}, todolistId);
-        dispatch(thunk);
-    }, [dispatch]);
-    const changeTodolistTitle = useCallback((id: string, title: string) => {
-        const thunk = changeTodolistTitleTC(id, title);
-        dispatch(thunk);
-    }, [dispatch]);
-
-    if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
+  useEffect(() => {
+    if (demo || !isLoggedIn) {
+      return;
     }
+    dispatch(fetchTodolistsTC());
+  }, [dispatch, demo, isLoggedIn]);
 
-    return (
-        <>
-            <Grid container style={{padding: '20px'}}>
-                <AddItemForm addItem={addTodoList}/>
+  const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>((state) => state.todolists);
+  const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks);
+
+  const removeTask = useCallback(
+    (id: string, todolistId: string) => {
+      const thunk = removeTaskTC(id, todolistId);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const addTask = useCallback(
+    (todolistId: string, title: string) => {
+      const thunk = addTaskTC(todolistId, title);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const changeTaskStatus = useCallback(
+    (id: string, status: TaskStatuses, todolistId: string) => {
+      const thunk = updateTaskTC(id, { status }, todolistId);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const changeFilter = useCallback(
+    (value: FilterValuesType, todolistId: string) => {
+      const action = changeTodolistFilterAC(todolistId, value);
+      dispatch(action);
+    },
+    [dispatch],
+  );
+  const removeTodolist = useCallback(
+    (id: string) => {
+      const thunk = removeTodolistTC(id);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const addTodoList = useCallback(
+    (title: string) => {
+      const thunk = addTodolistTC(title);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const changeTaskTitle = useCallback(
+    (id: string, title: string, todolistId: string) => {
+      const thunk = updateTaskTC(id, { title }, todolistId);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+  const changeTodolistTitle = useCallback(
+    (id: string, title: string) => {
+      const thunk = changeTodolistTitleTC(id, title);
+      dispatch(thunk);
+    },
+    [dispatch],
+  );
+
+  if (!isLoggedIn) {
+    return <Navigate to={"/login"} />;
+  }
+
+  return (
+    <>
+      <Grid container style={{ padding: "20px" }}>
+        <AddItemForm addItem={addTodoList} />
+      </Grid>
+      <Grid container spacing={3}>
+        {todolists.map((tl) => {
+          let tasksForTodoList = tasks[tl.id];
+          return (
+            <Grid key={tl.id} item>
+              <Paper style={{ padding: "10px" }}>
+                <Todolist
+                  key={tl.id}
+                  todolist={tl}
+                  tasks={tasksForTodoList}
+                  removeTask={removeTask}
+                  changeFilter={changeFilter}
+                  addTask={addTask}
+                  changeTaskStatus={changeTaskStatus}
+                  removeTodolist={removeTodolist}
+                  changeTaskTitle={changeTaskTitle}
+                  changeTodolistTitle={changeTodolistTitle}
+                  demo={demo}
+                />
+              </Paper>
             </Grid>
-            <Grid container spacing={3}>
-                {
-                    todolists.map(tl => {
-                        let tasksForTodoList = tasks[tl.id]
-                        return <Grid key={tl.id} item>
-                            <Paper style={{padding: '10px'}}>
-                                <Todolist key={tl.id}
-                                          todolist={tl}
-                                          tasks={tasksForTodoList}
-                                          removeTask={removeTask}
-                                          changeFilter={changeFilter}
-                                          addTask={addTask}
-                                          changeTaskStatus={changeTaskStatus}
-                                          removeTodolist={removeTodolist}
-                                          changeTaskTitle={changeTaskTitle}
-                                          changeTodolistTitle={changeTodolistTitle}
-                                          demo={demo}
-                                />
-                            </Paper>
-                        </Grid>
-                    })
-                }
-            </Grid>
-        </>
-    )
+          );
+        })}
+      </Grid>
+    </>
+  );
 };
