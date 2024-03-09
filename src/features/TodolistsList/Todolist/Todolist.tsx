@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, {useCallback, useEffect} from "react";
 import { AddItemForm } from "../../../components/AddItemForm/AddItemForm";
 import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
 import { Button, IconButton } from "@mui/material";
@@ -6,6 +6,9 @@ import { Delete } from "@mui/icons-material";
 import { Task } from "./Task/Task";
 import { TaskStatuses, TaskType } from "../../../api/todolists-api";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../../app/store";
+import {fetchTasksTC} from "../tasks-reducer";
 
 type TodolistPropsType = {
   todolist: TodolistDomainType;
@@ -35,14 +38,14 @@ export const Todolist = React.memo(
   }: TodolistPropsType) => {
     console.log("Todolist is called");
 
-    // const dispatch: AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
-    // useEffect(() => {
-    //     if (demo) {
-    //         return
-    //     }
-    //     dispatch(fetchTasksTC(todolist.id))
-    // }, [dispatch, todolist.id, demo])
+    useEffect(() => {
+        if (demo) {
+            return
+        }
+        dispatch(fetchTasksTC(todolist.id))
+    }, [dispatch, todolist.id, demo])
 
     const addTaskHandler = useCallback((title: string) => addTask(todolist.id, title), [addTask, todolist.id]);
     const changeTodolistTitleHandler = useCallback(

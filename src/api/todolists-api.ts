@@ -50,15 +50,16 @@ export const authAPI = {
 
 // types
 export type TodolistType = {
-  id: string;
-  addedDate: string;
-  order: number;
-  title: string;
+  id: string
+  addedDate: string
+  order: number
+  title: string
 };
 export type ResponseType<Data = {}> = {
-  data: Data;
-  resultCode: number;
-  messages: Array<string>;
+  data: Data
+  resultCode: number
+  messages: Array<string>
+  fieldErrors: Array<{field: string, error: string}>
 };
 export enum TaskStatuses {
   New = 0,
@@ -74,35 +75,35 @@ export enum TaskPriorities {
   Later = 4,
 }
 export type TaskType = {
-  id: string;
-  title: string;
-  description: string;
-  todoListId: string;
-  order: number;
-  status: TaskStatuses;
-  priority: TaskPriorities;
-  startDate: string;
-  deadline: string;
-  addedDate: string;
-  completed?: boolean;
-  entityStatus?: RequestStatusType;
+  id: string
+  title: string
+  description: string
+  todoListId: string
+  order: number
+  status: TaskStatuses
+  priority: TaskPriorities
+  startDate: string
+  deadline: string
+  addedDate: string
+  completed?: boolean
+  entityStatus?: RequestStatusType
 };
 export type UpdateTaskModelType = {
-  title: string;
-  description: string;
-  status: TaskStatuses;
-  priority: TaskPriorities;
-  startDate: string;
-  deadline: string;
+  title: string
+  description: string
+  status: TaskStatuses
+  priority: TaskPriorities
+  startDate: string
+  deadline: string
 };
 type GetTasksResponse = {
-  items: Array<TaskType>;
-  totalCount: number;
-  error: string;
+  items: Array<TaskType>
+  totalCount: number
+  error: string
 };
 export type LoginParamsType = {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
-  captcha?: boolean;
+  email: string
+  password: string
+  rememberMe?: boolean
+  captcha?: boolean
 };
