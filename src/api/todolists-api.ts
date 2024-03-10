@@ -36,6 +36,7 @@ export const todolistsAPI = {
     return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
   },
 };
+
 export const authAPI = {
   login(payload: LoginParamsType) {
     return instance.post<ResponseType<{ userId: number }>>(`auth/login`, payload);
@@ -74,6 +75,11 @@ export enum TaskPriorities {
   Urgently = 3,
   Later = 4,
 }
+export const ResultCode = {
+  success: 0,
+  error: 1,
+  captcha: 10
+} as const
 export type TaskType = {
   id: string
   title: string
