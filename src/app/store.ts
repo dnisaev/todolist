@@ -18,8 +18,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
 });
 
-export type AppRootStateType = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type AppRootStateType = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 // @ts-ignore
 window.store = store;

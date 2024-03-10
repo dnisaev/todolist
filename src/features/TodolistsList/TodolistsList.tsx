@@ -40,21 +40,21 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
 
   const removeTask = useCallback(
     (taskId: string, todolistId: string) => {
-      const thunk = removeTaskTC({taskId, todolistId});
+      const thunk = removeTaskTC({ taskId, todolistId });
       dispatch(thunk);
     },
     [dispatch],
   );
   const addTask = useCallback(
     (todoListId: string, title: string) => {
-      const thunk = addTaskTC({todoListId, title});
+      const thunk = addTaskTC({ todoListId, title });
       dispatch(thunk);
     },
     [dispatch],
   );
   const changeTaskStatus = useCallback(
     (id: string, status: TaskStatuses, todolistId: string) => {
-      const thunk = updateTaskTC({taskId: id, domainModel: { status }, todolistId});
+      const thunk = updateTaskTC({ taskId: id, domainModel: { status }, todolistId });
       dispatch(thunk);
     },
     [dispatch],
@@ -82,14 +82,14 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
   );
   const changeTaskTitle = useCallback(
     (id: string, title: string, todolistId: string) => {
-      const thunk = updateTaskTC({taskId: id, domainModel: { title }, todolistId});
+      const thunk = updateTaskTC({ taskId: id, domainModel: { title }, todolistId });
       dispatch(thunk);
     },
     [dispatch],
   );
   const changeTodolistTitle = useCallback(
     (id: string, title: string) => {
-      const thunk = changeTodolistTitleTC({todolistId: id, title});
+      const thunk = changeTodolistTitleTC({ todolistId: id, title });
       dispatch(thunk);
     },
     [dispatch],
