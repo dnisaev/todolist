@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect } from "react";
-import { AddItemForm } from "../../../components/AddItemForm/AddItemForm";
-import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
+import { AddItemForm } from "components/AddItemForm/AddItemForm";
+import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Task } from "./Task/Task";
-import { TaskStatuses, TaskType } from "../../../api/todolists-api";
+import { TaskStatuses, TaskType } from "api/todolists-api";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store";
+import { AppDispatch } from "app/store";
 import { fetchTasksTC } from "../tasks-reducer";
 
 type TodolistPropsType = {
@@ -36,8 +36,6 @@ export const Todolist = React.memo(
     changeTodolistTitle,
     demo = false,
   }: TodolistPropsType) => {
-    console.log("Todolist is called");
-
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {

@@ -17,8 +17,6 @@ type PropsType = {
 };
 
 export function App({ demo = false }: PropsType) {
-  console.log("App is called");
-
   const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status);
   const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized);
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);

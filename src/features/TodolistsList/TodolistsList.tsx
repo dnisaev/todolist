@@ -22,8 +22,6 @@ type PropsType = {
 };
 
 export const TodolistsList = ({ demo = false }: PropsType) => {
-  console.log("TodolistsList is called");
-
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
 
   const dispatch: AppDispatch = useDispatch();

@@ -50,7 +50,6 @@ const slice = createSlice({
   reducers: {
     setIsLoggedIn(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
       state.isLoggedIn = action.payload.isLoggedIn;
-      console.log("isLoggedIn true");
     },
   },
   extraReducers: (builder) => {

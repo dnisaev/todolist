@@ -41,11 +41,6 @@ const slice = createSlice({
       state.isInitialized = action.payload.isInitialized;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(initializeAppTC.fulfilled, (state) => {
-      state.isInitialized = true;
-    });
-  },
 });
 
 export const appReducer = slice.reducer;

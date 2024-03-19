@@ -7,7 +7,6 @@ type EditableSpanType = {
   disabled?: boolean;
 };
 export const EditableSpan = React.memo(({ title, onChange, disabled }: EditableSpanType) => {
-  console.log("EditableSpan is called");
   let [editMode, setEditMode] = useState(false);
   let [value, setValue] = useState("");
   const activateEditMode = () => {

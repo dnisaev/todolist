@@ -20,7 +20,6 @@ type TaskPropsType = {
 
 export const Task = React.memo(
   ({ todolistId, task, changeTaskTitle, changeTaskStatus, removeTask, entityStatus }: TaskPropsType) => {
-    console.log("Task is called");
     const onClickRemoveTask = () => removeTask(task.id, todolistId);
     const changeTaskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
       if (entityStatus !== "loading") {

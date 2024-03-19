@@ -3,7 +3,7 @@ import { addTodolistTC, clearTodosData, fetchTodolistsTC, removeTodolistTC } fro
 import { RequestStatusType, setAppError, setAppStatus } from "app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createAppAsyncThunk } from "../../utils/create-app-async-thunk";
+import { createAppAsyncThunk } from "utils/create-app-async-thunk";
 
 const initialState: TasksStateType = {};
 

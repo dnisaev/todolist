@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { loginTC } from "./auth-reducer";
-import { AppDispatch, AppRootStateType } from "../../app/store";
+import { AppDispatch, AppRootStateType } from "app/store";
 import { Navigate } from "react-router-dom";
 
 type FormikErrorType = {
@@ -20,8 +20,6 @@ type FormikErrorType = {
 };
 
 export const Login = () => {
-  console.log("Login is called");
-
   const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
 
   const dispatch: AppDispatch = useDispatch();

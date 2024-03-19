@@ -7,7 +7,6 @@ type AddItemFormType = {
   disabled?: boolean;
 };
 export const AddItemForm = React.memo(({ addItem, disabled }: AddItemFormType) => {
-  console.log("AddItemForm is called");
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
   const addItemHandler = () => {
