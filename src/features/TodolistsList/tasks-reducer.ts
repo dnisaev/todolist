@@ -1,4 +1,4 @@
-import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType } from "api/todolists-api";
+import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType } from "features/TodolistsList/todolists-api";
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "./todolists-reducer";
 import { RequestStatusType, setAppError, setAppStatus } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

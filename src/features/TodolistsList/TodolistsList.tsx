@@ -11,7 +11,7 @@ import {
   TodolistDomainType,
 } from "./todolists-reducer";
 import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "./tasks-reducer";
-import { TaskStatuses } from "api/todolists-api";
+import { TaskStatuses } from "features/TodolistsList/todolists-api";
 import { Grid, Paper } from "@mui/material";
 import { AddItemForm } from "components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";

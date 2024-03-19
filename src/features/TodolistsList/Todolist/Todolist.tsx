@@ -4,7 +4,7 @@ import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import { Task } from "./Task/Task";
-import { TaskStatuses, TaskType } from "api/todolists-api";
+import { TaskStatuses, TaskType } from "features/TodolistsList/todolists-api";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "app/store";

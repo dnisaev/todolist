@@ -1,4 +1,4 @@
-import { ResponseType } from "api/todolists-api";
+import { ResponseType } from "features/TodolistsList/todolists-api";
 import { Dispatch } from "redux";
 import { setAppError, setAppStatus } from "app/app-reducer";
 

@@ -1,4 +1,4 @@
-import { authAPI, LoginParamsType } from "api/todolists-api";
+import { authAPI, LoginParamsType } from "features/TodolistsList/todolists-api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setAppStatus } from "app/app-reducer";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
