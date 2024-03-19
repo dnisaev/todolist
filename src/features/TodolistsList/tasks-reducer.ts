@@ -1,4 +1,4 @@
-import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType } from "api/todolists-api";
+import { TaskType, todolistsAPI, UpdateTaskModelType } from "features/TodolistsList/todolists-api";
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "./todolists-reducer";
 import { RequestStatusType, setAppError, setAppStatus } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -6,6 +6,7 @@ import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { clearTasksAndTodolists } from "common/actions/common.actions";
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { handleServerAppError } from "common/utils/handle-server-app-error";
+import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
 
 const initialState: TasksStateType = {};
 
@@ -43,7 +44,7 @@ export const removeTaskTC = createAppAsyncThunk(
       dispatch(changeTaskEntityStatus({ taskId, todolistId, status: "loading" }));
       const res = await todolistsAPI.deleteTask(todolistId, taskId);
 
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }));
         return { taskId, todolistId };
       } else {
@@ -72,7 +73,7 @@ export const addTaskTC = createAppAsyncThunk(
       dispatch(setAppStatus({ status: "loading" }));
       const res = await todolistsAPI.createTask(todoListId, title);
 
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }));
         return res.data.data.item;
       } else {
@@ -122,7 +123,7 @@ export const updateTaskTC = createAppAsyncThunk(
       };
 
       const res = await todolistsAPI.updateTask(todolistId, taskId, apiModel);
-      if (res.data.resultCode === 0) {
+      if (res.data.resultCode === ResultCode.Success) {
         dispatch(setAppStatus({ status: "succeeded" }));
         dispatch(changeTaskEntityStatus({ taskId, todolistId, status: "succeeded" }));
         return { taskId, domainModel, todolistId };

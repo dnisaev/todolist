@@ -1,4 +1,4 @@
-import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
+import { ReduxStoreProviderDecorator } from "common/stories/decorators/ReduxStoreProviderDecorator";
 import { App } from "./App";
 
 export default {

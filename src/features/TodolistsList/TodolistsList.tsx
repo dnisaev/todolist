@@ -1,5 +1,5 @@
-import { AppDispatch, AppRootStateType } from "app/store";
-import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "app/store";
+import { useSelector } from "react-redux";
 import React, { useCallback, useEffect } from "react";
 import {
   addTodolistTC,
@@ -8,23 +8,28 @@ import {
   fetchTodolistsTC,
   FilterValuesType,
   removeTodolistTC,
-  TodolistDomainType,
 } from "./todolists-reducer";
-import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "./tasks-reducer";
-import { TaskStatuses } from "api/todolists-api";
+import { addTaskTC, removeTaskTC, updateTaskTC } from "./tasks-reducer";
 import { Grid, Paper } from "@mui/material";
-import { AddItemForm } from "components/AddItemForm/AddItemForm";
+import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
+import { useAppDispatch } from "common/hooks";
+import { TaskStatuses } from "common/enums";
+import { selectTodolists } from "features/TodolistsList/todolists.selectors";
+import { selectIsLoggedIn } from "features/auth/auth.selectors";
+import { selectTasks } from "features/TodolistsList/tasks.selectors";
 
 type PropsType = {
   demo?: boolean;
 };
 
 export const TodolistsList = ({ demo = false }: PropsType) => {
-  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
+  const todolists = useSelector(selectTodolists);
+  const tasks = useSelector(selectTasks);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   useEffect(() => {
     if (demo || !isLoggedIn) {
@@ -32,9 +37,6 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
     }
     dispatch(fetchTodolistsTC());
   }, [dispatch, demo, isLoggedIn]);
-
-  const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>((state) => state.todolists);
-  const tasks = useSelector<AppRootStateType, TasksStateType>((state) => state.tasks);
 
   const removeTask = useCallback(
     (taskId: string, todolistId: string) => {

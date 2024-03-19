@@ -1,16 +1,17 @@
-import { authAPI } from "api/todolists-api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { setIsLoggedIn } from "features/Login/auth-reducer";
+import { setIsLoggedIn } from "features/auth/auth-reducer";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { handleServerAppError } from "common/utils/handle-server-app-error";
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
+import { authAPI } from "features/auth/auth.api";
+import { ResultCode } from "common/enums";
 
 export const initializeAppTC = createAppAsyncThunk("app/initializeApp", async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
 
   try {
     const res = await authAPI.me();
-    if (res.data.resultCode === 0) {
+    if (res.data.resultCode === ResultCode.Success) {
       dispatch(setIsLoggedIn({ isLoggedIn: true }));
     } else {
       handleServerAppError(res.data, dispatch);
