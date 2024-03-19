@@ -1,9 +1,10 @@
 import { authAPI, LoginParamsType } from "api/todolists-api";
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setAppStatus } from "app/app-reducer";
-import { createAppAsyncThunk } from "utils/create-app-async-thunk";
+import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { clearTasksAndTodolists } from "common/actions/common.actions";
+import { handleServerAppError } from "common/utils/handle-server-app-error";
+import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 
 export const loginTC = createAppAsyncThunk("auth/login", async (param: LoginParamsType, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;

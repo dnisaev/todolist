@@ -1,9 +1,10 @@
 import { RequestStatusType, setAppStatus } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { todolistsAPI, TodolistType } from "api/todolists-api";
-import { createAppAsyncThunk } from "utils/create-app-async-thunk";
+import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { clearTasksAndTodolists } from "common/actions/common.actions";
+import { handleServerNetworkError } from "common/utils/handle-server-network-error";
+import { handleServerAppError } from "common/utils/handle-server-app-error";
 
 export const fetchTodolistsTC = createAppAsyncThunk("todolists/fetchTodolists", async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
