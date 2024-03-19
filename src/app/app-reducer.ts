@@ -18,6 +18,8 @@ export const initializeAppTC = createAppAsyncThunk("app/initializeApp", async (p
   } catch (error) {
     handleServerNetworkError(error, dispatch);
     return rejectWithValue(null);
+  } finally {
+    dispatch(setAppInitialized({ isInitialized: true }));
   }
 });
 
@@ -35,6 +37,9 @@ const slice = createSlice({
     setAppError: (state, action: PayloadAction<{ error: RequestErrorType }>) => {
       state.error = action.payload.error;
     },
+    setAppInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(initializeAppTC.fulfilled, (state) => {
@@ -47,7 +52,7 @@ export const appReducer = slice.reducer;
 
 // actions
 export const appActions = slice.actions;
-export const { setAppStatus, setAppError } = appActions;
+export const { setAppStatus, setAppError, setAppInitialized } = appActions;
 
 // types
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed";
