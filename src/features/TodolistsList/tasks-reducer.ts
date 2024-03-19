@@ -1,9 +1,10 @@
 import { TaskPriorities, TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType } from "api/todolists-api";
-import { addTodolistTC, clearTodosData, fetchTodolistsTC, removeTodolistTC } from "./todolists-reducer";
+import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "./todolists-reducer";
 import { RequestStatusType, setAppError, setAppStatus } from "app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "utils/create-app-async-thunk";
+import { clearTasksAndTodolists } from "common/actions/common.actions";
 
 const initialState: TasksStateType = {};
 
@@ -152,40 +153,41 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(addTodolistTC.fulfilled, (state, action) => {
-      state[action.payload.todolist.id] = [];
-    });
-    builder.addCase(removeTodolistTC.fulfilled, (state, action) => {
-      delete state[action.payload.id];
-    });
-    builder.addCase(fetchTodolistsTC.fulfilled, (state, action) => {
-      action.payload.todolists.forEach((tl) => {
-        state[tl.id] = [];
+    builder
+      .addCase(addTodolistTC.fulfilled, (state, action) => {
+        state[action.payload.todolist.id] = [];
+      })
+      .addCase(removeTodolistTC.fulfilled, (state, action) => {
+        delete state[action.payload.id];
+      })
+      .addCase(fetchTodolistsTC.fulfilled, (state, action) => {
+        action.payload.todolists.forEach((tl) => {
+          state[tl.id] = [];
+        });
+      })
+      .addCase(clearTasksAndTodolists, () => {
+        return {};
+      })
+      .addCase(fetchTasksTC.fulfilled, (state, action) => {
+        state[action.payload.todolistId] = action.payload.tasks;
+      })
+      .addCase(removeTaskTC.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todolistId];
+        const index = tasks.findIndex((t) => t.id === action.payload.taskId);
+        if (index > -1) {
+          tasks.splice(index, 1);
+        }
+      })
+      .addCase(addTaskTC.fulfilled, (state, action) => {
+        state[action.payload.todoListId].unshift(action.payload);
+      })
+      .addCase(updateTaskTC.fulfilled, (state, action) => {
+        const tasks = state[action.payload.todolistId];
+        const index = tasks.findIndex((t) => t.id === action.payload.taskId);
+        if (index > -1) {
+          tasks[index] = { ...tasks[index], ...action.payload.domainModel };
+        }
       });
-    });
-    builder.addCase(clearTodosData, () => {
-      return {};
-    });
-    builder.addCase(fetchTasksTC.fulfilled, (state, action) => {
-      state[action.payload.todolistId] = action.payload.tasks;
-    });
-    builder.addCase(removeTaskTC.fulfilled, (state, action) => {
-      const tasks = state[action.payload.todolistId];
-      const index = tasks.findIndex((t) => t.id === action.payload.taskId);
-      if (index > -1) {
-        tasks.splice(index, 1);
-      }
-    });
-    builder.addCase(addTaskTC.fulfilled, (state, action) => {
-      state[action.payload.todoListId].unshift(action.payload);
-    });
-    builder.addCase(updateTaskTC.fulfilled, (state, action) => {
-      const tasks = state[action.payload.todolistId];
-      const index = tasks.findIndex((t) => t.id === action.payload.taskId);
-      if (index > -1) {
-        tasks[index] = { ...tasks[index], ...action.payload.domainModel };
-      }
-    });
   },
 });
 

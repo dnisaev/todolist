@@ -1,9 +1,9 @@
 import { authAPI, LoginParamsType } from "api/todolists-api";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
-import { clearTodosData } from "../TodolistsList/todolists-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setAppStatus } from "app/app-reducer";
 import { createAppAsyncThunk } from "utils/create-app-async-thunk";
+import { clearTasksAndTodolists } from "common/actions/common.actions";
 
 export const loginTC = createAppAsyncThunk("auth/login", async (param: LoginParamsType, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
@@ -30,7 +30,7 @@ export const logoutTC = createAppAsyncThunk("auth/logout", async (param, thunkAP
   try {
     const res = await authAPI.logout();
     if (res.data.resultCode === 0) {
-      dispatch(clearTodosData());
+      dispatch(clearTasksAndTodolists());
       dispatch(setAppStatus({ status: "succeeded" }));
     } else {
       handleServerAppError(res.data, dispatch);
