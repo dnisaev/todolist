@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import { Menu } from "@mui/icons-material";
 import { TodolistsList } from "features/TodolistsList/TodolistsList";
 import { useSelector } from "react-redux";
-import { AppDispatch } from "./store";
 import { initializeAppTC } from "./app-reducer";
 import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { Login } from "features/auth/Login";
@@ -24,7 +23,7 @@ export function App({ demo = false }: PropsType) {
   const isInitialized = useSelector(selectIsInitialized);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const dispatch: AppDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!demo) {

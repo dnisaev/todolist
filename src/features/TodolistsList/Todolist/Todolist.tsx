@@ -6,7 +6,6 @@ import { Delete } from "@mui/icons-material";
 import { Task } from "./Task/Task";
 import { TaskType } from "features/TodolistsList/todolists-api";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
-import { AppDispatch } from "app/store";
 import { fetchTasksTC } from "../tasks-reducer";
 import { useAppDispatch } from "common/hooks";
 import { TaskStatuses } from "common/enums";
@@ -37,7 +36,7 @@ export const Todolist = React.memo(
     changeTodolistTitle,
     demo = false,
   }: TodolistPropsType) => {
-    const dispatch: AppDispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
       if (demo) {

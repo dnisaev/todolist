@@ -8,22 +8,27 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import { loginTC } from "./auth-reducer";
-import { AppDispatch, AppRootStateType } from "app/store";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "common/hooks";
+import type { FormikHelpers } from "formik";
+import { selectIsLoggedIn } from "features/auth/auth.selectors";
+import { useSelector } from "react-redux";
+import { BaseResponseType } from "common/types";
 
-type FormikErrorType = {
-  email?: string;
-  password?: string;
-  rememberMe?: boolean;
+type FormValues = Omit<LoginParamsType, "captcha">;
+
+type LoginParamsType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha?: string;
 };
 
 export const Login = () => {
-  const isLoggedIn = useSelector<AppRootStateType, boolean>((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const dispatch: AppDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -31,26 +36,39 @@ export const Login = () => {
       password: "",
       rememberMe: false,
     },
-    validate: (values) => {
-      const errors: FormikErrorType = {};
-
+    validate: (values: FormValues) => {
       if (!values.email) {
-        errors.email = "Required";
+        return {
+          email: "Email is required",
+        };
       } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Invalid email address";
+        return {
+          email: "Invalid email address",
+        };
       }
 
       if (!values.password) {
-        errors.password = "Required";
+        return {
+          password: "Password is required",
+        };
       } else if (values.password.length < 4) {
-        errors.password = "Must be more then 3 characters";
+        return {
+          password: "Must be more then 3 characters",
+        };
       }
-
-      return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
       formik.resetForm();
-      dispatch(loginTC(values));
+      dispatch(loginTC(values))
+        .unwrap()
+        .catch((err: BaseResponseType) => {
+          console.log(err);
+          if (err.fieldsErrors) {
+            err.fieldsErrors.forEach((el) => {
+              formikHelpers.setFieldError(el.field, el.error);
+            });
+          }
+        });
     },
   });
 

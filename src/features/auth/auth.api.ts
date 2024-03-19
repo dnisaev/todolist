@@ -1,15 +1,15 @@
 import { instance } from "common/api";
-import { ResponseType } from "common/types/common.types";
+import { BaseResponseType } from "common/types/common.types";
 
 export const authAPI = {
   login(payload: LoginParamsType) {
-    return instance.post<ResponseType<{ userId: number }>>(`auth/login`, payload);
+    return instance.post<BaseResponseType<{ userId: number }>>(`auth/login`, payload);
   },
   logout() {
-    return instance.delete<ResponseType>(`auth/login`);
+    return instance.delete<BaseResponseType>(`auth/login`);
   },
   me() {
-    return instance.get<ResponseType<{ id: number; email: string; login: string }>>("/auth/me");
+    return instance.get<BaseResponseType<{ id: number; email: string; login: string }>>("/auth/me");
   },
 };
 

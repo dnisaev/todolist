@@ -1,7 +1,7 @@
 import { RequestStatusType } from "app/app-reducer";
 import { instance } from "common/api/common.api";
 import { TaskPriorities, TaskStatuses } from "common/enums";
-import { ResponseType } from "common/types/common.types";
+import { BaseResponseType } from "common/types/common.types";
 
 // api
 export const todolistsAPI = {
@@ -9,25 +9,25 @@ export const todolistsAPI = {
     return instance.get<TodolistType[]>(`todo-lists`);
   },
   createTodolist(title: string) {
-    return instance.post<ResponseType<{ item: TodolistType }>>(`todo-lists`, { title: title });
+    return instance.post<BaseResponseType<{ item: TodolistType }>>(`todo-lists`, { title: title });
   },
   deleteTodolist(todolistId: string) {
-    return instance.delete<ResponseType>(`/todo-lists/${todolistId}`);
+    return instance.delete<BaseResponseType>(`/todo-lists/${todolistId}`);
   },
   updateTodolist(todolistId: string, title: string) {
-    return instance.put<ResponseType>(`/todo-lists/${todolistId}`, { title: title });
+    return instance.put<BaseResponseType>(`/todo-lists/${todolistId}`, { title: title });
   },
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponse>(`/todo-lists/${todolistId}/tasks`);
   },
   createTask(todolistId: string, taskTitle: string) {
-    return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: taskTitle });
+    return instance.post<BaseResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: taskTitle });
   },
   updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType) {
-    return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}/`, model);
+    return instance.put<BaseResponseType>(`todo-lists/${todolistId}/tasks/${taskId}/`, model);
   },
   deleteTask(todolistId: string, taskId: string) {
-    return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
+    return instance.delete<BaseResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
   },
 };
 

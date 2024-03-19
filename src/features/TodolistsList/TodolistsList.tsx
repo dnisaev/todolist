@@ -1,4 +1,3 @@
-import { AppDispatch } from "app/store";
 import { useSelector } from "react-redux";
 import React, { useCallback, useEffect } from "react";
 import {
@@ -29,7 +28,7 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
   const tasks = useSelector(selectTasks);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const dispatch: AppDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (demo || !isLoggedIn) {
