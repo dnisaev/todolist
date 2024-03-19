@@ -1,8 +1,8 @@
 import { authAPI } from "api/todolists-api";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { setIsLoggedIn } from "../features/Login/auth-reducer";
-import { createAppAsyncThunk } from "../utils/create-app-async-thunk";
+import { setIsLoggedIn } from "features/Login/auth-reducer";
+import { createAppAsyncThunk } from "utils/create-app-async-thunk";
 
 export const initializeAppTC = createAppAsyncThunk("app/initializeApp", async (param, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;

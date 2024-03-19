@@ -3,7 +3,7 @@ import { handleServerAppError, handleServerNetworkError } from "utils/error-util
 import { clearTodosData } from "../TodolistsList/todolists-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { setAppStatus } from "app/app-reducer";
-import { createAppAsyncThunk } from "../../utils/create-app-async-thunk";
+import { createAppAsyncThunk } from "utils/create-app-async-thunk";
 
 export const loginTC = createAppAsyncThunk("auth/login", async (param: LoginParamsType, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;

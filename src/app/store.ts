@@ -16,6 +16,7 @@ export const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
+  devTools: true,
 });
 
 export type AppRootStateType = ReturnType<typeof store.getState>;
