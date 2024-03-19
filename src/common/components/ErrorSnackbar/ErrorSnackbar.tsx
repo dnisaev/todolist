@@ -4,7 +4,7 @@ import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { useSelector } from "react-redux";
 import { setAppError } from "app/app-reducer";
 import { useAppDispatch } from "common/hooks";
-import { selectAppError } from "app/app.selectors";
+import { selectAppError } from "app/app-selectors";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

@@ -8,13 +8,13 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { loginTC } from "./auth-reducer";
 import { Navigate } from "react-router-dom";
 import { useAppDispatch } from "common/hooks";
 import type { FormikHelpers } from "formik";
-import { selectIsLoggedIn } from "features/auth/auth.selectors";
+import { selectIsLoggedIn } from "features/auth/auth-selectors";
 import { useSelector } from "react-redux";
 import { BaseResponseType } from "common/types";
+import { loginTC } from "features/auth/auth-reducer";
 
 type FormValues = Omit<LoginParamsType, "captcha">;
 

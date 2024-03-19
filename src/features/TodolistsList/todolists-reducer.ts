@@ -125,6 +125,7 @@ const slice = createSlice({
 
 export const todolistsReducer = slice.reducer;
 export const todolistsActions = slice.actions;
+export const todolistsThunks = { fetchTodolistsTC, addTodolistTC, removeTodolistTC, changeTodolistTitleTC };
 export const { changeTodolistFilter, changeTodolistEntityStatus } = todolistsActions;
 
 export type FilterValuesType = "active" | "all" | "completed";

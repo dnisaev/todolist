@@ -1,23 +1,15 @@
 import { useSelector } from "react-redux";
 import React, { useCallback, useEffect } from "react";
-import {
-  addTodolistTC,
-  changeTodolistFilter,
-  changeTodolistTitleTC,
-  fetchTodolistsTC,
-  FilterValuesType,
-  removeTodolistTC,
-} from "./todolists-reducer";
-import { addTaskTC, removeTaskTC, updateTaskTC } from "./tasks-reducer";
 import { Grid, Paper } from "@mui/material";
 import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "common/hooks";
 import { TaskStatuses } from "common/enums";
-import { selectTodolists } from "features/TodolistsList/todolists.selectors";
-import { selectIsLoggedIn } from "features/auth/auth.selectors";
-import { selectTasks } from "features/TodolistsList/tasks.selectors";
+import { selectTodolists } from "features/TodolistsList/todolists-selectors";
+import { selectIsLoggedIn } from "features/auth/auth-selectors";
+import { selectTasks } from "features/TodolistsList/tasks-selectors";
+import { useActions } from "common/hooks/useActions";
+import { FilterValuesType } from "features/TodolistsList/todolists-reducer";
 
 type PropsType = {
   demo?: boolean;
@@ -28,70 +20,71 @@ export const TodolistsList = ({ demo = false }: PropsType) => {
   const tasks = useSelector(selectTasks);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const dispatch = useAppDispatch();
+  const {
+    addTodolistTC,
+    removeTodolistTC,
+    fetchTodolistsTC,
+    changeTodolistTitleTC,
+    removeTaskTC,
+    addTaskTC,
+    updateTaskTC,
+    changeTodolistFilter,
+  } = useActions();
 
   useEffect(() => {
     if (demo || !isLoggedIn) {
       return;
     }
-    dispatch(fetchTodolistsTC());
-  }, [dispatch, demo, isLoggedIn]);
+    fetchTodolistsTC();
+  }, [fetchTodolistsTC, demo, isLoggedIn]);
 
   const removeTask = useCallback(
     (taskId: string, todolistId: string) => {
-      const thunk = removeTaskTC({ taskId, todolistId });
-      dispatch(thunk);
+      removeTaskTC({ taskId, todolistId });
     },
-    [dispatch],
+    [removeTaskTC],
   );
   const addTask = useCallback(
     (todoListId: string, title: string) => {
-      const thunk = addTaskTC({ todoListId, title });
-      dispatch(thunk);
+      addTaskTC({ todoListId, title });
     },
-    [dispatch],
+    [addTaskTC],
   );
   const changeTaskStatus = useCallback(
     (id: string, status: TaskStatuses, todolistId: string) => {
-      const thunk = updateTaskTC({ taskId: id, domainModel: { status }, todolistId });
-      dispatch(thunk);
+      updateTaskTC({ taskId: id, domainModel: { status }, todolistId });
     },
-    [dispatch],
+    [updateTaskTC],
   );
   const changeFilter = useCallback(
     (value: FilterValuesType, todolistId: string) => {
-      const action = changeTodolistFilter({ id: todolistId, filter: value });
-      dispatch(action);
+      changeTodolistFilter({ id: todolistId, filter: value });
     },
-    [dispatch],
+    [changeTodolistFilter],
   );
   const removeTodolist = useCallback(
     (id: string) => {
-      const thunk = removeTodolistTC(id);
-      dispatch(thunk);
+      removeTodolistTC(id);
     },
-    [dispatch],
+    [removeTodolistTC],
   );
   const addTodoList = useCallback(
     (title: string) => {
-      const thunk = addTodolistTC(title);
-      dispatch(thunk);
+      addTodolistTC(title);
     },
-    [dispatch],
+    [addTodolistTC],
   );
   const changeTaskTitle = useCallback(
     (id: string, title: string, todolistId: string) => {
-      const thunk = updateTaskTC({ taskId: id, domainModel: { title }, todolistId });
-      dispatch(thunk);
+      updateTaskTC({ taskId: id, domainModel: { title }, todolistId });
     },
-    [dispatch],
+    [updateTaskTC],
   );
   const changeTodolistTitle = useCallback(
     (id: string, title: string) => {
-      const thunk = changeTodolistTitleTC({ todolistId: id, title });
-      dispatch(thunk);
+      changeTodolistTitleTC({ todolistId: id, title });
     },
-    [dispatch],
+    [changeTodolistTitleTC],
   );
 
   if (!isLoggedIn) {
