@@ -1,23 +1,22 @@
 import React, { useCallback, useEffect } from "react";
-import "./App.css";
 import { AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Typography } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import { Menu } from "@mui/icons-material";
-import { TodolistsList } from "features/TodolistsList/TodolistsList";
+import { TodolistsList } from "features/TodolistsList/ui/TodolistsList";
 import { useSelector } from "react-redux";
 import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
-import { Login } from "features/auth/Login";
+import { Login } from "features/auth/ui/login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { selectAppStatus, selectIsInitialized } from "app/app-selectors";
-import { selectIsLoggedIn } from "features/auth/auth-selectors";
 import { useActions } from "common/hooks/useActions";
+import { selectIsLoggedIn } from "features/auth/model/authSlice";
+import { selectAppStatus, selectIsInitialized } from "app/appSlice";
 
 type PropsType = {
   demo?: boolean;
 };
 
 export function App({ demo = false }: PropsType) {
-  const status = useSelector(selectAppStatus);
+  const { status } = useSelector(selectAppStatus);
   const isInitialized = useSelector(selectIsInitialized);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 

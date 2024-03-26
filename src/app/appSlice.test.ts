@@ -1,4 +1,4 @@
-import { appActions, appReducer, RequestErrorType, RequestStatusType } from "./app-reducer";
+import { appActions, appSlice, RequestErrorType, RequestStatusType } from "app/appSlice";
 
 let startState: {
   status: RequestStatusType;
@@ -15,13 +15,13 @@ beforeEach(() => {
 });
 
 test("correct error message should be set", () => {
-  const endState = appReducer(startState, appActions.setAppError({ error: "Error message" }));
+  const endState = appSlice(startState, appActions.setAppError({ error: "Error message" }));
 
   expect(endState.error).toBe("Error message");
 });
 
 test("correct status should be set", () => {
-  const endState = appReducer(startState, appActions.setAppStatus({ status: "loading" }));
+  const endState = appSlice(startState, appActions.setAppStatus({ status: "loading" }));
 
   expect(endState.status).toBe("loading");
 });

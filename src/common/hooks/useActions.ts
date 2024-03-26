@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { ActionCreatorsMapObject, bindActionCreators } from "redux";
 import { useAppDispatch } from "common/hooks/useAppDispatch";
-import { todolistsActions, todolistsThunks } from "features/TodolistsList/todolists-reducer";
-import { tasksThunks } from "features/TodolistsList/tasks-reducer";
-import { authThunks } from "features/auth/auth-reducer";
+import { todolistsActions, todolistsThunks } from "features/TodolistsList/model/todolistsSlice";
+import { tasksThunks } from "features/TodolistsList/model/tasksSlice";
+import { authThunks } from "features/auth/model/authSlice";
 
 const actionsAll = { ...todolistsThunks, ...tasksThunks, ...todolistsActions, ...authThunks };
 

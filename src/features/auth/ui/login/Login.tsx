@@ -7,70 +7,11 @@ import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useFormik } from "formik";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "common/hooks";
-import type { FormikHelpers } from "formik";
-import { selectIsLoggedIn } from "features/auth/auth-selectors";
-import { useSelector } from "react-redux";
-import { BaseResponseType } from "common/types";
-import { loginTC } from "features/auth/auth-reducer";
-
-type FormValues = Omit<LoginParamsType, "captcha">;
-
-type LoginParamsType = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha?: string;
-};
+import { useLogin } from "features/auth/lib/useLogin";
 
 export const Login = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  const dispatch = useAppDispatch();
-
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-    validate: (values: FormValues) => {
-      if (!values.email) {
-        return {
-          email: "Email is required",
-        };
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        return {
-          email: "Invalid email address",
-        };
-      }
-
-      if (!values.password) {
-        return {
-          password: "Password is required",
-        };
-      } else if (values.password.length < 4) {
-        return {
-          password: "Must be more then 3 characters",
-        };
-      }
-    },
-    onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
-      formik.resetForm();
-      dispatch(loginTC(values))
-        .unwrap()
-        .catch((err: BaseResponseType) => {
-          console.log(err);
-          if (err.fieldsErrors) {
-            err.fieldsErrors.forEach((el) => {
-              formikHelpers.setFieldError(el.field, el.error);
-            });
-          }
-        });
-    },
-  });
+  const { isLoggedIn, formik } = useLogin();
 
   if (isLoggedIn) {
     return <Navigate to={"/"} />;

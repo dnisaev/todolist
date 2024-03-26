@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { todolistsAPI } from "features/TodolistsList/todolists-api";
+import { todolistsApi } from "features/TodolistsList/api/todolistsApi";
+import { tasksApi } from "features/TodolistsList/api/tasksApi";
 
 export default {
   title: "API/Todolist",
@@ -8,7 +9,7 @@ export default {
 export const GetTodolists = () => {
   const [state, setState] = useState<any>(null);
   useEffect(() => {
-    todolistsAPI.getTodolists().then((response) => {
+    todolistsApi.getTodolists().then((response) => {
       setState(response.data);
     });
   }, []);
@@ -20,7 +21,7 @@ export const CreateTodolist = () => {
   const [todolistTitle, setTodolistTitle] = useState<string>("");
 
   const createTodolist = () => {
-    todolistsAPI.createTodolist(todolistTitle).then((response) => {
+    todolistsApi.createTodolist(todolistTitle).then((response) => {
       setState(response.data);
     });
   };
@@ -44,10 +45,10 @@ export const CreateTodolist = () => {
 
 export const DeleteTodolist = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
 
   const deleteTodolist = () => {
-    todolistsAPI.deleteTodolist(todolistId).then((response) => {
+    todolistsApi.deleteTodolist(todoListId).then((response) => {
       setState(response.data);
     });
   };
@@ -58,9 +59,9 @@ export const DeleteTodolist = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <button onClick={deleteTodolist}>Удалить</button>
@@ -71,11 +72,11 @@ export const DeleteTodolist = () => {
 
 export const UpdateTodolistTitle = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
   const [todolistTitle, setTodolistTitle] = useState<string>("");
 
   const updateTodolistTitle = () => {
-    todolistsAPI.updateTodolist(todolistId, todolistTitle).then((response) => {
+    todolistsApi.updateTodolist(todoListId, todolistTitle).then((response) => {
       setState(response.data);
     });
   };
@@ -86,9 +87,9 @@ export const UpdateTodolistTitle = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <input
@@ -106,10 +107,10 @@ export const UpdateTodolistTitle = () => {
 
 export const GetTasks = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
 
   const getTasks = () => {
-    todolistsAPI.getTasks(todolistId).then((response) => {
+    tasksApi.getTasks(todoListId).then((response) => {
       setState(response.data);
     });
   };
@@ -120,9 +121,9 @@ export const GetTasks = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <button onClick={getTasks}>Запросить</button>
@@ -133,11 +134,11 @@ export const GetTasks = () => {
 
 export const CreateTask = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
   const [taskTitle, setTaskTitle] = useState<string>("");
 
   const createTask = () => {
-    todolistsAPI.createTask(todolistId, taskTitle).then((response) => {
+    tasksApi.createTask(todoListId, taskTitle).then((response) => {
       setState(response.data);
     });
   };
@@ -148,9 +149,9 @@ export const CreateTask = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <input
@@ -168,7 +169,7 @@ export const CreateTask = () => {
 
 export const UpdateTask = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
   const [taskId, setTaskId] = useState<string>("");
   const [taskTitle, setTaskTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -176,8 +177,8 @@ export const UpdateTask = () => {
   const [priority, setPriority] = useState<number>(0);
 
   const updateTask = () => {
-    todolistsAPI
-      .updateTask(todolistId, taskId, {
+    tasksApi
+      .updateTask(todoListId, taskId, {
         deadline: "",
         description: description,
         priority: priority,
@@ -196,9 +197,9 @@ export const UpdateTask = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <input
@@ -244,11 +245,11 @@ export const UpdateTask = () => {
 
 export const DeleteTask = () => {
   const [state, setState] = useState<any>(null);
-  const [todolistId, setTodolistId] = useState<string>("");
+  const [todoListId, settodoListId] = useState<string>("");
   const [taskId, setTaskId] = useState<string>("");
 
   const deleteTask = () => {
-    todolistsAPI.deleteTask(todolistId, taskId).then((response) => {
+    tasksApi.deleteTask(todoListId, taskId).then((response) => {
       return setState(response.data);
     });
   };
@@ -259,9 +260,9 @@ export const DeleteTask = () => {
       <div>
         <input
           placeholder={"Todolist ID"}
-          value={todolistId}
+          value={todoListId}
           onChange={(e) => {
-            setTodolistId(e.currentTarget.value);
+            settodoListId(e.currentTarget.value);
           }}
         />
         <input

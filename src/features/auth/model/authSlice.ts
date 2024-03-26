@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setAppInitialized, setAppStatus } from "app/app-reducer";
+import { setAppInitialized, setAppStatus } from "app/appSlice";
 import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
 import { clearTasksAndTodolists } from "common/actions/common.actions";
 import { handleServerAppError } from "common/utils/handle-server-app-error";
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
-import { authAPI, LoginParamsType } from "features/auth/auth-api";
+import { authAPI, LoginParamsType } from "features/auth/api/auth-api";
 import { ResultCode } from "common/enums";
 import { thunkTryCatch } from "common/utils/thunkTryCatch";
 
@@ -14,6 +14,9 @@ const slice = createSlice({
     isLoggedIn: false,
   },
   reducers: {},
+  selectors: {
+    selectIsLoggedIn: (sliceState) => sliceState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loginTC.fulfilled, (state) => {
@@ -87,5 +90,6 @@ const initializeAppTC = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
   },
 );
 
-export const authReducer = slice.reducer;
+export const authSlice = slice.reducer;
 export const authThunks = { loginTC, logoutTC, initializeAppTC };
+export const { selectIsLoggedIn } = slice.selectors;

@@ -1,16 +1,16 @@
-import { tasksReducer } from "features/TodolistsList/tasks-reducer";
-import { todolistsReducer } from "features/TodolistsList/todolists-reducer";
-import { appReducer } from "./app-reducer";
-import { authReducer } from "features/auth/auth-reducer";
+import { tasksSlice } from "features/TodolistsList/model/tasksSlice";
+import { todolistsSlice } from "features/TodolistsList/model/todolistsSlice";
+import { appSlice } from "app/appSlice";
+import { authSlice } from "features/auth/model/authSlice";
 import { thunk } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    tasks: tasksReducer,
-    todolists: todolistsReducer,
-    app: appReducer,
-    auth: authReducer,
+    tasks: tasksSlice,
+    todolists: todolistsSlice,
+    app: appSlice,
+    auth: authSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
   devTools: true,

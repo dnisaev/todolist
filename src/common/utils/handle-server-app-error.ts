@@ -1,6 +1,6 @@
 import { BaseResponseType } from "common/types/common.types";
 import { Dispatch } from "redux";
-import { setAppError, setAppStatus } from "app/app-reducer";
+import { setAppError, setAppStatus } from "app/appSlice";
 
 /**
  * Обработчик ошибок с сервера.

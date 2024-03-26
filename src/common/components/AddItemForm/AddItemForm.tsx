@@ -1,12 +1,12 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from "react";
+import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
 
-type AddItemFormType = {
+type Props = {
   addItem: (title: string) => void;
   disabled?: boolean;
 };
-export const AddItemForm = React.memo(({ addItem, disabled }: AddItemFormType) => {
+export const AddItemForm = memo(({ addItem, disabled }: Props) => {
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
   const addItemHandler = () => {
@@ -17,7 +17,7 @@ export const AddItemForm = React.memo(({ addItem, disabled }: AddItemFormType) =
       setError("title is required");
     }
   };
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const setTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.currentTarget.value);
   };
   const onKeyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ export const AddItemForm = React.memo(({ addItem, disabled }: AddItemFormType) =
       <TextField
         variant={"outlined"}
         value={title}
-        onChange={onChangeHandler}
+        onChange={setTitleHandler}
         onKeyDown={onKeyDownHandler}
         error={!!error}
         label={"Title"}
