@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
 import { Todolist } from "features/TodolistsList/ui/Todolist/Todolist";
@@ -27,12 +27,9 @@ export const TodolistsList = ({ demo = false }: Props) => {
     fetchTodolistsTC();
   }, [fetchTodolistsTC, demo, isLoggedIn]);
 
-  const addTodoList = useCallback(
-    (title: string) => {
-      addTodolistTC(title);
-    },
-    [addTodolistTC],
-  );
+  const addTodoList = (title: string) => {
+    return addTodolistTC(title).unwrap();
+  };
 
   if (!isLoggedIn) {
     return <Navigate to={"/login"} />;

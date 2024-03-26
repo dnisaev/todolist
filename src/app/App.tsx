@@ -26,7 +26,7 @@ export function App({ demo = false }: PropsType) {
     if (!demo) {
       initializeAppTC();
     }
-  }, [initializeAppTC, demo]);
+  }, [demo, initializeAppTC]);
 
   const logoutHandler = useCallback(() => {
     logoutTC();

@@ -7,9 +7,9 @@ export default {
 };
 
 export const AddItemFormStory = () => {
-  return <AddItemForm disabled={false} addItem={action("Button clicked inside form")} />;
+  return <AddItemForm disabled={false} addItem={action("Button clicked inside form").call} />;
 };
 
 export const AddItemFormDisabledStory = () => {
-  return <AddItemForm disabled={true} addItem={() => {}} />;
+  return <AddItemForm disabled={true} addItem={action("Button clicked inside form").call} />;
 };

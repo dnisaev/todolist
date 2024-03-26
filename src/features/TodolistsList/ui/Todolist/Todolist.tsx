@@ -23,7 +23,9 @@ export const Todolist = memo(({ todolist, tasks, demo = false }: Props) => {
     fetchTasksTC(todolist.id);
   }, [fetchTasksTC, todolist.id, demo]);
 
-  const addTaskCallback = (title: string) => addTaskTC({ todoListId: todolist.id, title });
+  const addTaskCallback = (title: string) => {
+    return addTaskTC({ todoListId: todolist.id, title }).unwrap();
+  };
 
   return (
     <div>

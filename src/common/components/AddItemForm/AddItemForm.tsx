@@ -1,9 +1,10 @@
 import React, { ChangeEvent, KeyboardEvent, memo, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { AddBox } from "@mui/icons-material";
+import { BaseResponseType } from "common/types";
 
 type Props = {
-  addItem: (title: string) => void;
+  addItem: (title: string) => Promise<unknown>;
   disabled?: boolean;
 };
 export const AddItemForm = memo(({ addItem, disabled }: Props) => {
@@ -11,8 +12,15 @@ export const AddItemForm = memo(({ addItem, disabled }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const addItemHandler = () => {
     if (title.trim() !== "") {
-      addItem(title.trim());
-      setTitle("");
+      addItem(title.trim())
+        .then(() => {
+          setTitle("");
+        })
+        .catch((err: BaseResponseType) => {
+          if (err?.resultCode) {
+            setError(err.messages[0]);
+          }
+        });
     } else {
       setError("title is required");
     }
