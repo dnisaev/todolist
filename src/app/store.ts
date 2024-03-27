@@ -1,6 +1,6 @@
 import { tasksSlice } from "features/TodolistsList/model/tasksSlice";
 import { todolistsSlice } from "features/TodolistsList/model/todolistsSlice";
-import { appSlice } from "app/appSlice";
+import { appSlice } from "app/model/appSlice";
 import { authSlice } from "features/auth/model/authSlice";
 import { thunk } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";

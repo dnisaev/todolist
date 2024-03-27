@@ -1,5 +1,5 @@
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/TodolistsList/model/todolistsSlice";
-import { RequestStatusType, setAppError } from "app/appSlice";
+import { RequestStatusType, setAppError } from "app/model/appSlice";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
 import { clearTasksAndTodolists } from "common/actions/commonActions";

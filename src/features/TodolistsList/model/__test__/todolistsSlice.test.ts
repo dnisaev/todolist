@@ -10,7 +10,7 @@ import {
   todolistsSlice,
 } from "features/TodolistsList/model/todolistsSlice";
 import { v1 } from "uuid";
-import { RequestStatusType } from "app/appSlice";
+import { RequestStatusType } from "app/model/appSlice";
 
 let todoListId1: string;
 let todoListId2: string;

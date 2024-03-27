@@ -3,7 +3,7 @@ import { createAppAsyncThunk } from "common/utils";
 import { authApi, LoginParamsType } from "features/auth/api/authApi";
 import { ResultCode } from "common/enums";
 import { clearTasksAndTodolists } from "common/actions";
-import { setAppInitialized } from "app/appSlice";
+import { setAppInitialized } from "app/model/appSlice";
 
 const slice = createSlice({
   name: "auth",

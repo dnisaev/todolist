@@ -1,4 +1,4 @@
-import { appActions, appSlice, RequestErrorType, RequestStatusType } from "app/appSlice";
+import { appActions, appSlice, RequestErrorType, RequestStatusType } from "app/model/appSlice";
 
 let startState: {
   status: RequestStatusType;

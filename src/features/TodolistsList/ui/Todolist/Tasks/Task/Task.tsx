@@ -2,7 +2,7 @@ import React, { ChangeEvent, memo } from "react";
 import { EditableSpan } from "common/components/EditableSpan/EditableSpan";
 import { IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { RequestStatusType } from "app/appSlice";
+import { RequestStatusType } from "app/model/appSlice";
 import { TaskStatuses } from "common/enums";
 import { useActions } from "common/hooks/useActions";
 

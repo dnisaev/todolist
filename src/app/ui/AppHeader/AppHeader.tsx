@@ -4,7 +4,7 @@ import { AppBar, Button, IconButton, LinearProgress, Typography } from "@mui/mat
 import { Menu } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "features/auth/model/authSlice";
-import { selectAppStatus } from "app/appSlice";
+import { selectAppStatus } from "app/model/appSlice";
 import { useActions } from "common/hooks/useActions";
 
 export const AppHeader = () => {

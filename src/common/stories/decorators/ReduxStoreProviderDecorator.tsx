@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { tasksSlice } from "features/TodolistsList/model/tasksSlice";
 import { todolistsSlice } from "features/TodolistsList/model/todolistsSlice";
 import { thunk } from "redux-thunk";
-import { appSlice } from "app/appSlice";
+import { appSlice } from "app/model/appSlice";
 import { AppRootStateType } from "app/store";
 import { v1 } from "uuid";
 import { authSlice } from "features/auth/model/authSlice";

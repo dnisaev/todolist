@@ -3,9 +3,9 @@ import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { useActions } from "common/hooks/useActions";
-import { selectIsInitialized } from "app/appSlice";
-import { AppHeader } from "app/AppHeader/AppHeader";
-import { Routing } from "app/Routing/Routing";
+import { selectIsInitialized } from "app/model/appSlice";
+import { AppHeader } from "app/ui/AppHeader/AppHeader";
+import { Routing } from "app/ui/Routing/Routing";
 
 type PropsType = {
   demo?: boolean;

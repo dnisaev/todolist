@@ -1,4 +1,4 @@
-import { RequestStatusType } from "app/appSlice";
+import { RequestStatusType } from "app/model/appSlice";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistsApi } from "features/TodolistsList/api/todolistsApi";
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
