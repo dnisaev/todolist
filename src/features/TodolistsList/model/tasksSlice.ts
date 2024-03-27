@@ -109,7 +109,7 @@ export const updateTaskTC = createAppAsyncThunk(
     } else {
       dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "failed" }));
       handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
+      return rejectWithValue(res.data);
     }
   },
 );

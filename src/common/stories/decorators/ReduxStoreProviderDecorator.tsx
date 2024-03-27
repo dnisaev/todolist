@@ -25,7 +25,7 @@ const initialGlobalState: AppRootStateType = {
     { id: "todoListId2", title: "Что купить", filter: "all", entityStatus: "loading", addedDate: "", order: 0 },
   ],
   tasks: {
-    ["todoListId1"]: [
+    todoListId1: [
       {
         id: v1(),
         title: "HTML & CSS",
@@ -75,7 +75,7 @@ const initialGlobalState: AppRootStateType = {
         priority: TaskPriorities.Low,
       },
     ],
-    ["todoListId2"]: [
+    todoListId2: [
       {
         id: v1(),
         title: "Овощи",

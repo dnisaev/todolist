@@ -41,7 +41,8 @@ const slice = createSlice({
           if (
             action.type === todolistsThunks.addTodolistTC.rejected.type ||
             action.type === todolistsThunks.changeTodolistTitleTC.rejected.type ||
-            action.type === tasksThunks.addTaskTC.rejected.type
+            action.type === tasksThunks.addTaskTC.rejected.type ||
+            action.type === tasksThunks.updateTaskTC.rejected.type
           )
             return;
           state.error = action.payload.messages[0];
