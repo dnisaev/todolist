@@ -32,11 +32,14 @@ export const removeTaskTC = createAppAsyncThunk(
     const { taskId, todoListId } = param;
 
     dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "loading" }));
-    const res = await tasksApi.deleteTask(todoListId, taskId);
+    const res = await tasksApi.deleteTask(todoListId, taskId).finally(() => {
+      dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "idle" }));
+    });
 
     if (res.data.resultCode === ResultCode.Success) {
       return { taskId, todoListId };
     } else {
+      dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "failed" }));
       handleServerAppError(res.data, dispatch);
       return rejectWithValue(null);
     }
@@ -97,13 +100,15 @@ export const updateTaskTC = createAppAsyncThunk(
       ...domainModel,
     };
 
-    const res = await tasksApi.updateTask(todoListId, taskId, apiModel);
+    const res = await tasksApi.updateTask(todoListId, taskId, apiModel).finally(() => {
+      dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "idle" }));
+    });
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "succeeded" }));
       return { taskId, domainModel, todoListId };
     } else {
-      handleServerAppError(res.data, dispatch);
       dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "failed" }));
+      handleServerAppError(res.data, dispatch);
       return rejectWithValue(null);
     }
   },

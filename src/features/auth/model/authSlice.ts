@@ -1,5 +1,5 @@
 import { createSlice, isFulfilled, PayloadAction } from "@reduxjs/toolkit";
-import { createAppAsyncThunk, handleServerAppError } from "common/utils";
+import { createAppAsyncThunk } from "common/utils";
 import { authApi, LoginParamsType } from "features/auth/api/authApi";
 import { ResultCode } from "common/enums";
 import { clearTasksAndTodolists } from "common/actions";
@@ -25,13 +25,12 @@ const slice = createSlice({
 });
 
 const loginTC = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>("auth/login", async (param, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+  const { rejectWithValue } = thunkAPI;
 
   const res = await authApi.login(param);
   if (res.data.resultCode === ResultCode.Success) {
     return { isLoggedIn: true };
   } else {
-    handleServerAppError(res.data, dispatch);
     return rejectWithValue(res.data);
   }
 });
@@ -44,8 +43,7 @@ const logoutTC = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>("auth/l
     dispatch(clearTasksAndTodolists());
     return { isLoggedIn: false };
   } else {
-    handleServerAppError(res.data, dispatch);
-    return rejectWithValue(null);
+    return rejectWithValue(res.data);
   }
 });
 
@@ -58,8 +56,7 @@ const initializeAppTC = createAppAsyncThunk<{ isLoggedIn: boolean }, undefined>(
     if (res.data.resultCode === ResultCode.Success) {
       return { isLoggedIn: true };
     } else {
-      handleServerAppError(res.data, dispatch, false);
-      return rejectWithValue(null);
+      return rejectWithValue(res.data);
     }
   },
 );

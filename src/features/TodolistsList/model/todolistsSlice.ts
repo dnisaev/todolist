@@ -17,13 +17,15 @@ export const removeTodolistTC = createAppAsyncThunk(
     const { dispatch, rejectWithValue } = thunkAPI;
 
     dispatch(changeTodolistEntityStatus({ id: todoListId, status: "loading" }));
-    const res = await todolistsApi.deleteTodolist(todoListId);
-    dispatch(changeTodolistEntityStatus({ id: todoListId, status: "idle" }));
+    const res = await todolistsApi.deleteTodolist(todoListId).finally(() => {
+      dispatch(changeTodolistEntityStatus({ id: todoListId, status: "idle" }));
+    });
+
     if (res.data.resultCode === ResultCode.Success) {
       return { id: todoListId };
     } else {
       handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
+      return rejectWithValue(res.data);
     }
   },
 );
@@ -45,14 +47,16 @@ export const changeTodolistTitleTC = createAppAsyncThunk(
     const { todoListId, title } = param;
 
     dispatch(changeTodolistEntityStatus({ id: todoListId, status: "loading" }));
-    const res = await todolistsApi.updateTodolist(todoListId, title);
+    const res = await todolistsApi.updateTodolist(todoListId, title).finally(() => {
+      dispatch(changeTodolistEntityStatus({ id: todoListId, status: "idle" }));
+    });
     if (res.data.resultCode === ResultCode.Success) {
       dispatch(changeTodolistEntityStatus({ id: todoListId, status: "succeeded" }));
       return { id: todoListId, title };
     } else {
-      handleServerAppError(res.data, dispatch);
       dispatch(changeTodolistEntityStatus({ id: todoListId, status: "failed" }));
-      return rejectWithValue(null);
+      handleServerAppError(res.data, dispatch);
+      return rejectWithValue(res.data);
     }
   },
 );
