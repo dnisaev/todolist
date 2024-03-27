@@ -16,8 +16,7 @@ type Props = {
 export const TodolistsList = ({ demo = false }: Props) => {
   const todolists = useSelector(selectTodolists);
   const tasks = useSelector(selectTasks);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const { isLoggedIn } = useSelector(selectIsLoggedIn);
   const { addTodolistTC, fetchTodolistsTC } = useActions();
 
   useEffect(() => {

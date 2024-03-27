@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "common/hooks";
 import { type FormikHelpers, useFormik } from "formik";
-import { loginTC, selectIsLoggedIn } from "features/auth/model/authSlice";
+import { selectIsLoggedIn } from "features/auth/model/authSlice";
 import { BaseResponseType } from "common/types";
+import { useActions } from "common/hooks/useActions";
 
 type FormValues = Omit<LoginParamsType, "captcha">;
 
@@ -14,9 +14,8 @@ type LoginParamsType = {
 };
 
 export const useLogin = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
-  const dispatch = useAppDispatch();
+  const { isLoggedIn } = useSelector(selectIsLoggedIn);
+  const { loginTC } = useActions();
 
   const formik = useFormik({
     initialValues: {
@@ -47,10 +46,9 @@ export const useLogin = () => {
     },
     onSubmit: (values: FormValues, formikHelpers: FormikHelpers<FormValues>) => {
       formik.resetForm();
-      dispatch(loginTC(values))
+      loginTC(values)
         .unwrap()
         .catch((err: BaseResponseType) => {
-          console.log(err);
           if (err.fieldsErrors) {
             err.fieldsErrors.forEach((el) => {
               formikHelpers.setFieldError(el.field, el.error);

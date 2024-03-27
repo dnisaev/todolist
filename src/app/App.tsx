@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { AppBar, Button, CircularProgress, Container, IconButton, LinearProgress, Typography } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import { Menu } from "@mui/icons-material";
@@ -17,20 +17,17 @@ type PropsType = {
 
 export function App({ demo = false }: PropsType) {
   const { status } = useSelector(selectAppStatus);
-  const isInitialized = useSelector(selectIsInitialized);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const { isInitialized } = useSelector(selectIsInitialized);
+  const { isLoggedIn } = useSelector(selectIsLoggedIn);
   const { initializeAppTC, logoutTC } = useActions();
 
   useEffect(() => {
     if (!demo) {
       initializeAppTC();
     }
-  }, [demo, initializeAppTC]);
+  }, [initializeAppTC, demo]);
 
-  const logoutHandler = useCallback(() => {
-    logoutTC();
-  }, [logoutTC]);
+  const logoutHandler = () => logoutTC();
 
   if (!isInitialized) {
     return (
