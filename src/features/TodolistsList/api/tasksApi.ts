@@ -1,6 +1,6 @@
 import { instance } from "common/api";
 import { BaseResponseType } from "common/types";
-import { GetTasksResponse, TaskType, UpdateTaskModelType } from "features/TodolistsList/api/tasksApi.types";
+import { GetTasksResponse, TaskType, UpdateTaskModelType } from "features/TodolistsList/api/tasksApiTypes";
 
 export const tasksApi = {
   getTasks(todoListId: string) {

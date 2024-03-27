@@ -1,6 +1,6 @@
 import { instance } from "common/api/commonApi";
-import { BaseResponseType } from "common/types/common.types";
-import { TodolistType } from "features/TodolistsList/api/todolistsApi.types";
+import { BaseResponseType } from "common/types/commonTypes";
+import { TodolistType } from "features/TodolistsList/api/todolistsApiTypes";
 
 export const todolistsApi = {
   getTodolists() {

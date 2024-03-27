@@ -1,4 +1,4 @@
-import { BaseResponseType } from "common/types/common.types";
+import { BaseResponseType } from "common/types/commonTypes";
 import { Dispatch } from "redux";
 import { setAppError, setAppStatus } from "app/appSlice";
 /**

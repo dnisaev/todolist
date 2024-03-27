@@ -35,14 +35,10 @@ const slice = createSlice({
       })
       .addMatcher(isRejected, (state, action: any) => {
         state.status = "failed";
-        console.log("action", action);
-        console.log("state", state);
         if (action.payload) {
           if (
             action.type === todolistsThunks.addTodolistTC.rejected.type ||
-            action.type === todolistsThunks.changeTodolistTitleTC.rejected.type ||
-            action.type === tasksThunks.addTaskTC.rejected.type ||
-            action.type === tasksThunks.updateTaskTC.rejected.type
+            action.type === tasksThunks.addTaskTC.rejected.type
           )
             return;
           state.error = action.payload.messages[0];

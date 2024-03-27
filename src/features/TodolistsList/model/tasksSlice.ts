@@ -1,11 +1,10 @@
 import { addTodolistTC, fetchTodolistsTC, removeTodolistTC } from "features/TodolistsList/model/todolistsSlice";
 import { RequestStatusType, setAppError } from "app/appSlice";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
-import { clearTasksAndTodolists } from "common/actions/common.actions";
-import { handleServerAppError } from "common/utils/handle-server-app-error";
+import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk";
+import { clearTasksAndTodolists } from "common/actions/commonActions";
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
-import { TaskType, UpdateTaskModelType } from "features/TodolistsList/api/tasksApi.types";
+import { TaskType, UpdateTaskModelType } from "features/TodolistsList/api/tasksApiTypes";
 import { tasksApi } from "features/TodolistsList/api/tasksApi";
 
 const initialState: TasksStateType = {};
@@ -40,8 +39,7 @@ export const removeTaskTC = createAppAsyncThunk(
       return { taskId, todoListId };
     } else {
       dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "failed" }));
-      handleServerAppError(res.data, dispatch);
-      return rejectWithValue(null);
+      return rejectWithValue(res.data);
     }
   },
 );
@@ -52,16 +50,14 @@ export const addTaskTC = createAppAsyncThunk(
       todoListId: string;
       title: string;
     },
-    thunkAPI,
+    { rejectWithValue },
   ) => {
-    const { dispatch, rejectWithValue } = thunkAPI;
     const { todoListId, title } = param;
 
     const res = await tasksApi.createTask(todoListId, title);
     if (res.data.resultCode === ResultCode.Success) {
       return res.data.data.item;
     } else {
-      handleServerAppError(res.data, dispatch, false);
       return rejectWithValue(res.data);
     }
   },
@@ -108,7 +104,6 @@ export const updateTaskTC = createAppAsyncThunk(
       return { taskId, domainModel, todoListId };
     } else {
       dispatch(changeTaskEntityStatus({ taskId, todoListId, status: "failed" }));
-      handleServerAppError(res.data, dispatch);
       return rejectWithValue(res.data);
     }
   },

@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
 import { TodolistDomainType } from "features/TodolistsList/model/todolistsSlice";
-import { TaskType } from "features/TodolistsList/api/tasksApi.types";
+import { TaskType } from "features/TodolistsList/api/tasksApiTypes";
 import { useActions } from "common/hooks/useActions";
 import { FilterTasksButtons } from "features/TodolistsList/ui/Todolist/FilterTaskButton/FilterTasksButtons";
 import { Tasks } from "features/TodolistsList/ui/Todolist/Tasks/Tasks";
